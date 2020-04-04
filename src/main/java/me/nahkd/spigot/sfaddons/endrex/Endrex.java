@@ -1,7 +1,8 @@
-package me.CHANGEME.slimefunaddon;
+package me.nahkd.spigot.sfaddons.endrex;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,8 +14,9 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 
-public class ExampleAddon extends JavaPlugin implements SlimefunAddon {
+public class Endrex extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public void onEnable() {
@@ -25,6 +27,7 @@ public class ExampleAddon extends JavaPlugin implements SlimefunAddon {
             // You could start an Auto-Updater for example
         }
 
+        /*
         // Slimefun4 also already comes with a bundled version of bStats
         // You can use bStats to collect usage data about your plugin
         // More info: https://bstats.org/getting-started
@@ -54,6 +57,13 @@ public class ExampleAddon extends JavaPlugin implements SlimefunAddon {
         // Recipy Types from Slimefun itself will automatically add the recipe to that machine
         SlimefunItem item = new SlimefunItem(category, slimefunItem, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
         item.register(this);
+        */ // TODO remove messy comments
+        CommandSender logger = getServer().getConsoleSender();
+        long timer = System.currentTimeMillis();
+        
+        EndrexItems.init();
+        
+        logger.sendMessage("§3Endrex §bPlugin enabled in " + (System.currentTimeMillis() - timer) + "ms");
     }
 
     @Override
@@ -62,14 +72,8 @@ public class ExampleAddon extends JavaPlugin implements SlimefunAddon {
     }
 
     @Override
-    public String getBugTrackerURL() {
-        // You can return a link to your Bug Tracker instead of null here
-        return null;
-    }
-
+    public String getBugTrackerURL() {return "https://github.com/nahkd123/Endrex/issues";}
     @Override
-    public JavaPlugin getJavaPlugin() {
-        return this;
-    }
+    public JavaPlugin getJavaPlugin() {return this;}
 
 }
