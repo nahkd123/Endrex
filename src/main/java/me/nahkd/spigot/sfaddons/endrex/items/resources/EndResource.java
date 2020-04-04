@@ -1,0 +1,51 @@
+package me.nahkd.spigot.sfaddons.endrex.items.resources;
+
+import org.bukkit.NamespacedKey;
+import org.bukkit.World.Environment;
+import org.bukkit.block.Biome;
+import org.bukkit.inventory.ItemStack;
+
+import io.github.thebusybiscuit.slimefun4.api.geo.GEOResource;
+
+public class EndResource implements GEOResource {
+
+	private final NamespacedKey key;
+	private final EndResourceItem item;
+	private final int randomMin;
+	private final int randomDelta;
+	
+	public EndResource(NamespacedKey key, EndResourceItem item, int randomMin, int randomMax) {
+		this.key = key;
+		this.item = item;
+		this.randomMin = randomMin;
+		this.randomDelta = randomMax - randomMin;
+	}
+	
+	@Override
+	public NamespacedKey getKey() {return key;}
+
+	@Override
+	public int getDefaultSupply(Environment environment, Biome biome) {
+		switch (environment) {
+		case THE_END: return randomMin;
+		default: return 0;
+		// If there's additional enviroment related to The End, we'll add it in here...
+		}
+	}
+
+	@Override
+	public int getMaxDeviation() {return randomDelta;}
+
+	@Override
+	public String getName() {
+		ItemStack is = item.getItem();
+		return is.hasItemMeta() && is.getItemMeta().hasDisplayName()? is.getItemMeta().getDisplayName() : item.getID();
+	}
+
+	@Override
+	public ItemStack getItem() {return item.getItem();}
+
+	@Override
+	public boolean isObtainableFromGEOMiner() {return true;}
+
+}

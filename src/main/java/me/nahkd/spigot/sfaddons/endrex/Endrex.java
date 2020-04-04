@@ -15,6 +15,8 @@ import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
+import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkullItems;
+import me.nahkd.spigot.sfaddons.endrex.items.liquid.Liquids;
 
 public class Endrex extends JavaPlugin implements SlimefunAddon {
 
@@ -61,7 +63,9 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         CommandSender logger = getServer().getConsoleSender();
         long timer = System.currentTimeMillis();
         
-        EndrexItems.init();
+        EndrexSkullItems.init();
+        Liquids.init(this);
+        EndrexItems.init(this);
         
         logger.sendMessage("§3Endrex §bPlugin enabled in " + (System.currentTimeMillis() - timer) + "ms");
     }
