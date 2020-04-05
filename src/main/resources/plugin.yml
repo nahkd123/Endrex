@@ -23,3 +23,8 @@ version: ${project.version}
 api-version: "1.14"
 
 api: []
+
+commands:
+  endrexde:
+    description: go away
+    usage: "yes go away"

@@ -29,7 +29,7 @@ public class CustomLiquid {
 	public final String key;
 	public final ItemStack defaultDisplay;
 	public ItemStack bucket;
-	public ItemStack crucibleSkull;
+	public String crucibleSkullHash;
 	
 	public CustomLiquid(NamespacedKey key, ItemStack defaultDisplay) {
 		this.key = key.toString();

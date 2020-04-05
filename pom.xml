@@ -39,6 +39,8 @@
   			<filtering>true</filtering>
   			<includes>
   				<include>*</include>
+  				<include>structures/village0/*</include>
+  				<include>structures/other/*</include>
   			</includes>
   		</resource>
   	</resources>

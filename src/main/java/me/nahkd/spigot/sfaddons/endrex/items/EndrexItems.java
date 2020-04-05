@@ -34,8 +34,8 @@ public class EndrexItems {
 	
 	public static void init(Endrex plugin) {
 		// Resources
-		CATEGORY_RESOURCES = new Category(new NamespacedKey(plugin, "resources"), new CustomItem(EndrexSkullItems.PEARL_ORE, "&eEndrex &7- &bResources"));
-		ENDER_PEARL_ORE = new EndResourceItem(plugin, new SlimefunItemStack("ENDER_PEARL_ORE", EndrexSkullItems.PEARL_ORE, "&fEnder Pearl Ore", "", "&7How about throwing it away?"), 4, 19)
+		CATEGORY_RESOURCES = new Category(new NamespacedKey(plugin, "resources"), new CustomItem(EndrexSkulls.PEARL_ORE, "&eEndrex &7- &bResources"));
+		ENDER_PEARL_ORE = new EndResourceItem(plugin, new SlimefunItemStack("ENDER_PEARL_ORE", EndrexSkulls.PEARL_ORE, "&fEnder Pearl Ore", "", "&7How about throwing it away?"), 4, 19)
 				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.ENDER_PEARL, 4))
 				.itemUseHandler((e) -> {
 					e.getPlayer().launchProjectile(EnderPearl.class);
@@ -43,21 +43,28 @@ public class EndrexItems {
 					InventoryUtils.consumeHand(e.getPlayer().getInventory(), e.getInteractEvent().getHand(), 1);
 				})
 				.registerChain(plugin);
-		RESONANT_ENDER_BUCKET = new LiquidBucket(CATEGORY_RESOURCES, new SlimefunItemStack("RESONANT_ENDER_BUCKET", EndrexSkullItems.RESONANT_ENDER_BUCKET, "&bBucket of Resonant Ender", "", "&7No you can't pour liquid", "&fyet :(")).registerChain(plugin);
+		RESONANT_ENDER_BUCKET = new LiquidBucket(CATEGORY_RESOURCES, new SlimefunItemStack("RESONANT_ENDER_BUCKET", EndrexSkulls.RESONANT_ENDER_BUCKET, "&bBucket of Resonant Ender", "", "&7No you can't pour liquid", "&fyet :(")).registerChain(plugin);
 		
 		// Machines
-		CATEGORY_MACHINES = new Category(new NamespacedKey(plugin, "machines"), new CustomItem(EndrexSkullItems.ENHANCED_CRUCIBLE_EMPTY, "&eEndrex &7- &bBasic Machines"));
+		CATEGORY_MACHINES = new Category(new NamespacedKey(plugin, "machines"), new CustomItem(EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY, "&eEndrex &7- &bBasic Machines"));
 		initCrucibles(plugin);
 		
 		// Other stuffs
 		EnhancedElectricCrucible.addRecipe(ENDER_PEARL_ORE.getItem(), Liquids.RESONANT_ENDER, 1000);
 		EnhancedElectricCrucible.addRecipe(new ItemStack(Material.ENDER_PEARL), Liquids.RESONANT_ENDER, 200); // Better to smelt ore!
+		EnhancedElectricCrucible.addRecipe(new ItemStack(Material.COBBLESTONE), Liquids.LAVA, 65);
+		EnhancedElectricCrucible.addRecipe(new ItemStack(Material.STONE), Liquids.LAVA, 75);
+		EnhancedElectricCrucible.addRecipe(new ItemStack(Material.BLAZE_ROD), Liquids.LAVA, 100);
+		EnhancedElectricCrucible.addRecipe(new ItemStack(Material.BLAZE_POWDER), Liquids.LAVA, 50);
 	}
 	
 	private static void initCrucibles(Endrex plugin) {
+		// The main reason why I created crucible is because I want to find a way to use
+		// ender pearl ore.
+		
 		ENHANCED_ELECTRIC_CRUCIBLE_1 = new EnhancedElectricCrucible(CATEGORY_MACHINES, new SlimefunItemStack(
 				"ENHANCED_CRUCIBLE_1",
-				EndrexSkullItems.ENHANCED_CRUCIBLE_EMPTY,
+				EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY,
 				"&eEnhanced Electric Crucible",
 				"",
 				LoreBuilder.machine(MachineTier.BASIC, MachineType.MACHINE),
@@ -73,7 +80,7 @@ public class EndrexItems {
 				.registerChain(plugin);
 		ENHANCED_ELECTRIC_CRUCIBLE_2 = new EnhancedElectricCrucible(CATEGORY_MACHINES, new SlimefunItemStack(
 				"ENHANCED_CRUCIBLE_2",
-				EndrexSkullItems.ENHANCED_CRUCIBLE_EMPTY,
+				EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY,
 				"&eEnhanced Electric Crucible &7- &eII",
 				"",
 				LoreBuilder.machine(MachineTier.BASIC, MachineType.MACHINE),
@@ -85,7 +92,7 @@ public class EndrexItems {
 						new ItemStack(Material.IRON_INGOT), null, new ItemStack(Material.IRON_INGOT),
 						SlimefunItems.DAMASCUS_STEEL_INGOT, ENHANCED_ELECTRIC_CRUCIBLE_1.getItem(), SlimefunItems.DAMASCUS_STEEL_INGOT,
 						SlimefunItems.HEATING_COIL, null, SlimefunItems.HEATING_COIL
-				}, 50, 24, 5000)
+				}, 100, 24, 5000)
 				.registerChain(plugin);
 	}
 	

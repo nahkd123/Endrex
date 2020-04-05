@@ -26,9 +26,12 @@ import me.mrCookieSlime.Slimefun.api.energy.ChargableBlock;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
+import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.CustomLiquid;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.LiquidStorage;
+import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
 public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetComponent, InventoryBlock {
@@ -100,6 +103,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 			// liquid = CustomLiquid.getLiquidByKey(data.getString("liquidtype"));
 			liquid = LiquidStorage.getLiquidType(b);
 		}
+		int oldMb = mb;
 		
 		// If the input is a bucket, we'll take it instantly
 		ItemStack input = inv.getItemInSlot(getInputSlots()[0]);
@@ -137,11 +141,11 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 				
 				mb += mbTick;
 				mbLeft -= mbTick;
+				if (liquid == null) liquid = processing.get(b);
 				if (mbLeft <= 0) {
 					processing.remove(b);
 					processMbLeft.remove(b);
 				} else processMbLeft.put(b, mbLeft);
-				if (liquid == null) liquid = processing.get(b);
 				
 				ChargableBlock.addCharge(b, -jPerTick);
 			}
@@ -169,7 +173,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 			LiquidStorage.setMills(b, mb);
 		}
 		
-		// Update UI
+		// Update UI and block
 		if (liquid == null || mb <= 0) {
 			if (!GUI_NOLIQUID.isSimilar(inv.getItemInSlot(13))) inv.replaceExistingItem(13, GUI_NOLIQUID);
 		} else {
@@ -183,6 +187,15 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 							"&7Processing: &e" + mbLeft + " &7MB"
 					));
 		}
+		if (oldMb != mb && Endrex.allowSyncBlockChange()) {
+			// Trigger block update
+			final CustomLiquid liquidFinal = liquid;
+			final int mbFinal = mb;
+			Bukkit.getScheduler().runTask(Endrex.getRunningInstance(), () -> {
+				if (mbFinal > 0 && liquidFinal != null) EndrexUtils.setSkullFromHash(b, liquidFinal.crucibleSkullHash);
+				else EndrexUtils.setSkullFromHash(b, EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY_HASH);
+			});
+		}
 	}
 	
 	// TODO should we create another thing called "liquid storage block"?
@@ -192,13 +205,14 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 	private static final int[] BGOUTPUTSLOTS = {6, 7, 8, 15, 17, 24, 25, 26};
 	private static final CustomItem GUI_INPUT = new CustomItem(Material.LIME_STAINED_GLASS_PANE, "&aInput");
 	private static final CustomItem GUI_OUTPUT = new CustomItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, "&bOutput");
+	private static final CustomItem GUI_WAIT = new CustomItem(Material.YELLOW_STAINED_GLASS_PANE, "&ePlease wait", "&7Maybe about 0.25s");
 	private static final CustomItem GUI_NOLIQUID = new CustomItem(Material.BARRIER, "&cNo Liquid", "&7Nope, nothing :shrug:");
 	private void menuPreset(BlockMenuPreset preset) {
 		// preset.setSize(27); // dafuq this cause error tho
 		for (int s : BGINPUTSLOTS) preset.addItem(s, GUI_INPUT, ChestMenuUtils.getEmptyClickHandler());
 		for (int s : BGINFOSLOTS) preset.addItem(s, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
 		for (int s : BGOUTPUTSLOTS) preset.addItem(s, GUI_OUTPUT, ChestMenuUtils.getEmptyClickHandler());
-		preset.addItem(13, GUI_NOLIQUID, ChestMenuUtils.getEmptyClickHandler());
+		preset.addItem(13, GUI_WAIT, ChestMenuUtils.getEmptyClickHandler());
 	}
 
 	@Override

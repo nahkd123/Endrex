@@ -1,5 +1,10 @@
 package me.nahkd.spigot.sfaddons.endrex;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
@@ -14,15 +19,28 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import me.nahkd.spigot.sfaddons.endrex.debug.DebugCommand;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
-import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkullItems;
+import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.Liquids;
 import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
+import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
+import me.nahkd.spigot.sfaddons.endrex.schem2.ext.SchematicExtension;
 
 public class Endrex extends JavaPlugin implements SlimefunAddon {
 
 	private static boolean syncBlockChange;
+	private static Endrex instance;
 	public static boolean allowSyncBlockChange() {return syncBlockChange;}
+	public static Endrex getRunningInstance() {return instance;}
+	
+	private static HashMap<String, nahkdSchematic2> loadedSchemas;
+	public static nahkdSchematic2 getSchematic(String path) {
+		return loadedSchemas.get(path);
+	}
+	
+	private static File cacheFolder;
+	public static File getCacheFolder() {return cacheFolder;}
 	
     @Override
     public void onEnable() {
@@ -42,12 +60,31 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         new Metrics(this, bStatsId);
         */ // TODO remove messy comments
         CommandSender logger = getServer().getConsoleSender();
+        instance = this;
         long timer = System.currentTimeMillis();
+        
+        // Folders and stuffs
+        if (!getDataFolder().exists()) getDataFolder().mkdir();
+        cacheFolder = new File(getDataFolder(), "cache");
+        if (!cacheFolder.exists()) cacheFolder.mkdir();
+        
+        loadedSchemas = new HashMap<String, nahkdSchematic2>();
+        logger.sendMessage("§3[Endrex] §bLoading schematics...");
+        loadSchematic("/structures/village0/house0.nsm");
+        loadSchematic("/structures/village0/central.nsm");
+        loadSchematic("/structures/other/SpongePowered.nsm");
+        
+        // Events handlers
+        getServer().getPluginManager().registerEvents(new ChunksEventsHandlers(), this);
+        
+        // Commands
+        getCommand("endrexde").setExecutor(new DebugCommand());
         
         // Config
         syncBlockChange = cfg.getBoolean("performance.syncMachineBlockChange");
         
-        EndrexSkullItems.init();
+        SchematicExtension.initDefault(this);
+        EndrexSkulls.init();
         EndrexRecipeType.init(this);
         Liquids.init(this);
         EndrexItems.init(this);
@@ -66,5 +103,20 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
     public String getBugTrackerURL() {return "https://github.com/nahkd123/Endrex/issues";}
     @Override
     public JavaPlugin getJavaPlugin() {return this;}
-
+    public InputStream getResource(String path) {
+    	return getClassLoader().getResourceAsStream(path);
+    }
+    public nahkdSchematic2 loadSchematicFromResource(String path) {
+    	try {
+			return new nahkdSchematic2().fromStream(getResource(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new nahkdSchematic2();
+		}
+    }
+    public void loadSchematic(String path) {
+    	System.out.println("Loading " + path + " from jar file...");
+    	loadedSchemas.put(path, loadSchematicFromResource(path));
+    }
+    
 }

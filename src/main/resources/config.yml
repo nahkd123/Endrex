@@ -1,5 +1,6 @@
 options:
   auto-update: true
+  generate-structure: true
 
 performance:
   # false might give better performance, but won't update block texture on different states.
