@@ -1,6 +1,8 @@
 package me.nahkd.spigot.sfaddons.endrex;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -45,12 +47,8 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
     @Override
     public void onEnable() {
         // Read something from your config.yml
-        Config cfg = new Config(this);
-
-        if (cfg.getBoolean("options.auto-update")) {
-            // You could start an Auto-Updater for example
-        }
-
+        // Config cfg = new Config(this);
+    	// no, i won't, imma use better config "engine"
         /*
         // Slimefun4 also already comes with a bundled version of bStats
         // You can use bStats to collect usage data about your plugin
@@ -59,6 +57,9 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         int bStatsId = -1;
         new Metrics(this, bStatsId);
         */ // TODO remove messy comments
+    	saveResource("config.yml", false);
+    	reloadConfig();
+    	
         CommandSender logger = getServer().getConsoleSender();
         instance = this;
         long timer = System.currentTimeMillis();
@@ -70,9 +71,9 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         
         loadedSchemas = new HashMap<String, nahkdSchematic2>();
         logger.sendMessage("§3[Endrex] §bLoading schematics...");
-        loadSchematic("/structures/village0/house0.nsm");
-        loadSchematic("/structures/village0/central.nsm");
-        loadSchematic("/structures/other/SpongePowered.nsm");
+        loadSchematic("structures/village0/house0.nsm");
+        loadSchematic("structures/village0/central.nsm");
+        loadSchematic("structures/other/SpongePowered.nsm");
         
         // Events handlers
         getServer().getPluginManager().registerEvents(new ChunksEventsHandlers(), this);
@@ -81,7 +82,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         getCommand("endrexde").setExecutor(new DebugCommand());
         
         // Config
-        syncBlockChange = cfg.getBoolean("performance.syncMachineBlockChange");
+        syncBlockChange = getConfig().getBoolean("performance.syncMachineBlockChange", true);
         
         SchematicExtension.initDefault(this);
         EndrexSkulls.init();
@@ -103,9 +104,6 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
     public String getBugTrackerURL() {return "https://github.com/nahkd123/Endrex/issues";}
     @Override
     public JavaPlugin getJavaPlugin() {return this;}
-    public InputStream getResource(String path) {
-    	return getClassLoader().getResourceAsStream(path);
-    }
     public nahkdSchematic2 loadSchematicFromResource(String path) {
     	try {
 			return new nahkdSchematic2().fromStream(getResource(path));

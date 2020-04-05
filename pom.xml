@@ -38,12 +38,31 @@
   			<directory>${basedir}/src/main/resources</directory>
   			<filtering>true</filtering>
   			<includes>
-  				<include>*</include>
+  				<include>*.yml</include>
+  			</includes>
+  		</resource>
+  		<resource>
+  			<directory>${basedir}/src/main/resources</directory>
+  			<filtering>false</filtering>
+  			<includes>
   				<include>structures/village0/*</include>
   				<include>structures/other/*</include>
   			</includes>
   		</resource>
   	</resources>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-resources-plugin</artifactId>
+  			<version>3.1.0</version>
+  			<configuration>
+  				<nonFilteredFileExtensions>
+  					<nonFilteredFileExtension>bin</nonFilteredFileExtension>
+  					<nonFilteredFileExtension>nsm</nonFilteredFileExtension>
+  				</nonFilteredFileExtensions>
+  			</configuration>
+  		</plugin>
+  	</plugins>
   </build>
   
   <dependencies>
