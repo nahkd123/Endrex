@@ -10,17 +10,20 @@ import org.bukkit.event.world.ChunkLoadEvent;
 
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.structures.ForestsGenerator;
+import me.nahkd.spigot.sfaddons.endrex.structures.MysteryBoxesGenerator;
 import me.nahkd.spigot.sfaddons.endrex.structures.SpongePoweredHouses;
 
 public class ChunksEventsHandlers implements Listener {
 	
 	static SpongePoweredHouses spongePowered;
 	static ForestsGenerator forestsGenerator;
+	static MysteryBoxesGenerator mysteryBoxexGenerator;
 	static Random random;
 	
 	public ChunksEventsHandlers() {
 		spongePowered = new SpongePoweredHouses();
 		forestsGenerator = new ForestsGenerator();
+		mysteryBoxexGenerator = new MysteryBoxesGenerator();
 		random = new Random();
 	}
 	
@@ -36,6 +39,8 @@ public class ChunksEventsHandlers implements Listener {
 		random.setSeed((chunk.getWorld().getSeed() >> 3) + chunk.getX() + chunk.getZ());
 		spongePowered.generateStructure(chunk.getWorld(), chunk, random);
 		forestsGenerator.generateStructure(chunk.getWorld(), chunk, random);
+		mysteryBoxexGenerator.generateStructure(chunk.getWorld(), chunk, random);
+		
 	}
 	
 }
