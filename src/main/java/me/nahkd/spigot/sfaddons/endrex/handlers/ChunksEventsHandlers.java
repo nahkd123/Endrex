@@ -36,7 +36,7 @@ public class ChunksEventsHandlers implements Listener {
 	
 	public static void chunkGen(Chunk chunk) {
 		// Generate structure here
-		random.setSeed((chunk.getWorld().getSeed() >> 3) + chunk.getX() + chunk.getZ());
+		random.setSeed((chunk.getWorld().getSeed() >> 3) + (chunk.getX() << 16) + chunk.getZ());
 		spongePowered.generateStructure(chunk.getWorld(), chunk, random);
 		forestsGenerator.generateStructure(chunk.getWorld(), chunk, random);
 		mysteryBoxexGenerator.generateStructure(chunk.getWorld(), chunk, random);

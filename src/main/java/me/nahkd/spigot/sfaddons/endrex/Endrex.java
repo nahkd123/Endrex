@@ -84,11 +84,6 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         loadSchematic("structures/other/SpongePowered.nsm");
         loadSchematic("structures/other/mysterybox.nsm");
         
-        // Events handlers
-        getServer().getPluginManager().registerEvents(new ChunksEventsHandlers(), this);
-        getServer().getPluginManager().registerEvents(new EntityEventsHandlers(), this);
-        // getServer().getPluginManager().registerEvents(new UnusedClass(), this);
-        
         // Commands
         getCommand("endrexde").setExecutor(new DebugCommand());
         
@@ -101,6 +96,11 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         EndrexItems.init(this);
         
         Liquids.postInit();
+        
+        // Events handlers
+        getServer().getPluginManager().registerEvents(new ChunksEventsHandlers(), this);
+        getServer().getPluginManager().registerEvents(new EntityEventsHandlers(), this);
+        // getServer().getPluginManager().registerEvents(new UnusedClass(), this);
         
         logger.sendMessage("§3[Endrex] §bPlugin enabled in " + (System.currentTimeMillis() - timer) + "ms");
     }
