@@ -30,7 +30,7 @@ public class MysteryBoxesGenerator extends StructuresGenerator {
 		int mx = rand.nextInt(16);
 		for (int i = 0; i < mx; i++) rand.nextInt();
 		double hit = rand.nextDouble();
-		if (hit <= 0.25) {
+		if (hit <= 0.06) {
 			int
 				genX = rand.nextInt(13) + (newChunk.getX() * 16),
 				genZ = rand.nextInt(13) + (newChunk.getZ() * 16);
