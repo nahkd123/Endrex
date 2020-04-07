@@ -17,6 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Container;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
@@ -24,11 +25,19 @@ import org.bukkit.block.data.Levelled;
 import org.bukkit.block.data.Bisected.Half;
 import org.bukkit.block.data.type.Stairs;
 import org.bukkit.block.data.type.Stairs.Shape;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.nahkd.spigot.sfaddons.endrex.schem2.ext.CustomBlockData;
 import me.nahkd.spigot.sfaddons.endrex.schem2.ext.SchematicExtension;
+import me.nahkd.spigot.sfaddons.endrex.schem2.loot.LootTableEntry;
+import me.nahkd.spigot.sfaddons.endrex.schem2.loot.LootTables;
 
+/*
+ * idc if the class name triggered you or not, but if I put the letter 'n'
+ * upper case, then it will trigger me.
+ */
 /**
  * Another schematic thing huh?
  * @author nahkd123
@@ -195,11 +204,33 @@ public class nahkdSchematic2 {
 				dat instanceof Levelled;
 	}
 	
+	/**
+	 * Paste the schematic
+	 * @param w
+	 * @param loc
+	 */
 	public void pasteSchematic(World w, VectorInt loc) {
+		pasteSchematic(w, loc, null, null);
+	}
+	public void pasteSchematic(World w, VectorInt loc, List<LootTableEntry> lootTable) {
+		pasteSchematic(w, loc, lootTable, null);
+	}
+	/**
+	 * Paste the schematic, and replace chest items with loot inside loot table
+	 * @param w
+	 * @param loc
+	 * @param transparent Block that's won't be replaced while pasting, or null for nothing
+	 * @param lootTable The loot table, or null for empty chests
+	 */
+	public void pasteSchematic(World w, VectorInt loc, List<LootTableEntry> lootTable, Collection<Material> transparent) {
 		int index = 0; int stateIndex = 0; VectorInt bloc = new VectorInt();
 		for (int x = 0; x < size.x; x++) for (int y = 0; y < size.y; y++) for (int z = 0; z < size.z; z++) {
 			Block b = bloc.set(x, y, z).add(loc).toLocation(w).getBlock();
 			bloc.set(x, y, z);
+			if (transparent != null && transparent.contains(mappedIDs.get((int) schemData[index]))) {
+				index++;
+				continue;
+			}
 			b.setType(mappedIDs.get((int) schemData[index]));
 			index++;
 			if (isSpecial(b.getBlockData())) {
@@ -223,6 +254,14 @@ public class nahkdSchematic2 {
 				}
 				b.setBlockData(blockData);
 				stateIndex++;
+			}
+			if (b.getState() instanceof Container && lootTable != null) {
+				// It's -p-i-z-z-a- looting time!
+				Container container = (Container) b.getState();
+				Inventory inv = container.getInventory();
+				ItemStack[] is = inv.getContents();
+				LootTables.loot(is, lootTable);
+				inv.setContents(is);
 			}
 			if (customs.containsKey(bloc)) try {
 				CustomBlockData dat = customs.get(bloc);

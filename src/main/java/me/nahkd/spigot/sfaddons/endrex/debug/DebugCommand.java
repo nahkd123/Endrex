@@ -14,9 +14,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.nahkd.spigot.sfaddons.endrex.handlers.ChunksEventsHandlers;
 import me.nahkd.spigot.sfaddons.endrex.schem2.Region;
 import me.nahkd.spigot.sfaddons.endrex.schem2.VectorInt;
 import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
+import me.nahkd.spigot.sfaddons.endrex.structures.StructuresGenerator;
 
 public class DebugCommand implements CommandExecutor {
 
@@ -35,7 +37,11 @@ public class DebugCommand implements CommandExecutor {
 		if (sender instanceof Player && sender.hasPermission("endrex.debug")) {
 			Player p = (Player) sender;
 			if (args[0].equalsIgnoreCase("help")) {
-				sender.sendMessage("sp1, sp2, savesp, loadsp, copy, paste");
+				sender.sendMessage("sp1, sp2, savesp, loadsp, copy, paste, cangenerate <size X and Z>, genchunk");
+			} else if (args[0].equalsIgnoreCase("cangenerate")) {
+				int x = Integer.parseInt(args[1]);
+				int z = Integer.parseInt(args[2]);
+				p.sendMessage(StructuresGenerator.canSafelyGenerate(new VectorInt(x, 0, z), p.getLocation().subtract(0, 1, 0)) + "");
 			} else if (args[0].equalsIgnoreCase("sp1")) {
 				Location f = p.getTargetBlock(null, 7).getLocation();
 				sp1 = VectorInt.fromLocation(f);
@@ -66,6 +72,9 @@ public class DebugCommand implements CommandExecutor {
 				clip = new nahkdSchematic2().fromRegion(new Region(spW, sp1, sp2));
 			} else if (args[0].equalsIgnoreCase("paste")) {
 				clip.pasteSchematic(p.getWorld(), VectorInt.fromLocation(p.getLocation()));
+			} else if (args[0].equalsIgnoreCase("genchunk")) {
+				ChunksEventsHandlers.chunkGen(p.getWorld().getChunkAt(p.getLocation()));
+				p.sendMessage("done");
 			}
 			return true;
 		}

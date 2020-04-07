@@ -23,6 +23,11 @@
   	</repository>
   	
   	<repository>
+  		<id>local-repo</id>
+  		<url>file://E/thevaildfolder/spigot 1.15.2/</url>
+  	</repository>
+  	
+  	<repository>
   		<id>jitpack.io</id>
   		<url>https://jitpack.io</url>
   	</repository>
@@ -46,6 +51,7 @@
   			<filtering>false</filtering>
   			<includes>
   				<include>structures/village0/*</include>
+  				<include>structures/magictree/*</include>
   				<include>structures/other/*</include>
   			</includes>
   		</resource>

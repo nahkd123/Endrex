@@ -7,14 +7,14 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.geo.GEOResource;
 
-public class EndResource implements GEOResource {
+public class EndrexResource implements GEOResource {
 
 	private final NamespacedKey key;
-	private final EndResourceItem item;
+	private final EndrexResourceItem item;
 	private final int randomMin;
 	private final int randomDelta;
 	
-	public EndResource(NamespacedKey key, EndResourceItem item, int randomMin, int randomMax) {
+	public EndrexResource(NamespacedKey key, EndrexResourceItem item, int randomMin, int randomMax) {
 		this.key = key;
 		this.item = item;
 		this.randomMin = randomMin;

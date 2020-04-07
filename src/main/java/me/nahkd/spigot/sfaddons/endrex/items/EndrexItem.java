@@ -10,7 +10,7 @@ import me.mrCookieSlime.Slimefun.Objects.handlers.ItemHandler;
 import me.mrCookieSlime.Slimefun.Objects.handlers.ItemUseHandler;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
-public abstract class EndrexItem extends SlimefunItem {
+public class EndrexItem extends SlimefunItem {
 
 	private Runnable onPostReg;
 	

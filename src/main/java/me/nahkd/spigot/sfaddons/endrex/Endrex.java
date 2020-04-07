@@ -22,6 +22,9 @@ import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.debug.DebugCommand;
+import me.nahkd.spigot.sfaddons.endrex.handlers.ChunksEventsHandlers;
+import me.nahkd.spigot.sfaddons.endrex.handlers.EntityEventsHandlers;
+import me.nahkd.spigot.sfaddons.endrex.handlers.UnusedClass;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.Liquids;
@@ -68,15 +71,23 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         cacheFolder = new File(getDataFolder(), "cache");
         if (!cacheFolder.exists()) cacheFolder.mkdir();
-        
+
+        SchematicExtension.initDefault(this);
         loadedSchemas = new HashMap<String, nahkdSchematic2>();
         logger.sendMessage("§3[Endrex] §bLoading schematics...");
         loadSchematic("structures/village0/house0.nsm");
         loadSchematic("structures/village0/central.nsm");
+        loadSchematic("structures/magictree/0.nsm");
+        loadSchematic("structures/magictree/1.nsm");
+        loadSchematic("structures/magictree/2.nsm");
+        loadSchematic("structures/magictree/3.nsm");
         loadSchematic("structures/other/SpongePowered.nsm");
+        loadSchematic("structures/other/mysterybox.nsm");
         
         // Events handlers
         getServer().getPluginManager().registerEvents(new ChunksEventsHandlers(), this);
+        getServer().getPluginManager().registerEvents(new EntityEventsHandlers(), this);
+        // getServer().getPluginManager().registerEvents(new UnusedClass(), this);
         
         // Commands
         getCommand("endrexde").setExecutor(new DebugCommand());
@@ -84,7 +95,6 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         // Config
         syncBlockChange = getConfig().getBoolean("performance.syncMachineBlockChange", true);
         
-        SchematicExtension.initDefault(this);
         EndrexSkulls.init();
         EndrexRecipeType.init(this);
         Liquids.init(this);

@@ -12,6 +12,10 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
 public class InventoryUtils {
 	
+	public static boolean isNotAir(ItemStack item) {
+		return item != null && item.getType() != Material.AIR;
+	}
+	
 	public static void consumeHand(PlayerInventory inv, EquipmentSlot slot, int amount) {
 		ItemStack main = new ItemStack(inv.getItemInMainHand());
 		ItemStack off = new ItemStack(inv.getItemInOffHand());

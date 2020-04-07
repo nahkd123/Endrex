@@ -1,6 +1,12 @@
 options:
   auto-update: true
   generate-structure: true
+  structures:
+    spongePowered: 0.05 # 10% gives you Sponge
+    forests:
+      magictree:
+        min: 2
+        max: 12
 
 performance:
   # false might give better performance, but won't update block texture on different states.

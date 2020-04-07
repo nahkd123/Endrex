@@ -10,25 +10,25 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 
-public class EndResourceItem extends EndrexItem {
+public class EndrexResourceItem extends EndrexItem {
 	
 	private final SlimefunItemStack item;
 	private boolean applyRecipe;
 	private SlimefunMachine machine;
 	private ItemStack recipeOutput;
 	
-	public EndResourceItem(JavaPlugin plugin, SlimefunItemStack item, int randomMin, int randomMax) {
+	public EndrexResourceItem(JavaPlugin plugin, SlimefunItemStack item, int randomMin, int randomMax) {
 		super(EndrexItems.CATEGORY_RESOURCES, item, RecipeType.GEO_MINER, new ItemStack[0]);
 		this.item = item;
 		this.applyRecipe = false;
 		machine = null;
 		recipeOutput = null;
 		
-		new EndResource(new NamespacedKey(plugin, item.getItemID()), this, randomMin, randomMax - randomMin).register();
+		new EndrexResource(new NamespacedKey(plugin, item.getItemID()), this, randomMin, randomMax - randomMin).register();
 	}
 	
 	// public String getName() {return item.getItemID();}
-	public EndResourceItem addMachineRecipe(SlimefunMachine machine, ItemStack output) {
+	public EndrexResourceItem addMachineRecipe(SlimefunMachine machine, ItemStack output) {
 		this.machine = machine;
 		this.recipeOutput = output;
 		this.applyRecipe = true;
