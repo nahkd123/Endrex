@@ -40,7 +40,6 @@ public class ChunksEventsHandlers implements Listener {
 		spongePowered.generateStructure(chunk.getWorld(), chunk, random);
 		forestsGenerator.generateStructure(chunk.getWorld(), chunk, random);
 		mysteryBoxexGenerator.generateStructure(chunk.getWorld(), chunk, random);
-		
 	}
 	
 }
