@@ -28,6 +28,11 @@ import me.nahkd.spigot.sfaddons.endrex.items.liquid.LiquidBucket;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.Liquids;
 import me.nahkd.spigot.sfaddons.endrex.items.machines.DustsFabricator;
 import me.nahkd.spigot.sfaddons.endrex.items.machines.EnhancedElectricCrucible;
+import me.nahkd.spigot.sfaddons.endrex.items.misc.EndRespawnAnchor;
+import me.nahkd.spigot.sfaddons.endrex.items.misc.MysteriousTeleporter;
+import me.nahkd.spigot.sfaddons.endrex.items.mysterious.MysteriousEquipment;
+import me.nahkd.spigot.sfaddons.endrex.items.mysterious.RandomEnchantmentEntry;
+import me.nahkd.spigot.sfaddons.endrex.items.resources.EndrexMineableResource;
 import me.nahkd.spigot.sfaddons.endrex.items.resources.EndrexResourceItem;
 import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
 import me.nahkd.spigot.sfaddons.endrex.utils.EndrexLoreBuilder;
@@ -50,6 +55,9 @@ public class EndrexItems {
 	public static EndrexItem ENDERIUM_BLOCK;
 	public static EndrexItem DRAGON_SCALE;
 	public static EndrexItem REINFORCED_DRAGON_SCALE;
+	public static EndrexItem MYSTHERIUM_ORE;
+	public static EndrexItem MYSTHERIUM;
+	public static EndrexItem MYSTHERIUM_BUCKET;
 	
 	public static Category CATEGORY_MACHINES;
 	public static EnhancedElectricCrucible ENHANCED_ELECTRIC_CRUCIBLE_1;
@@ -63,8 +71,14 @@ public class EndrexItems {
 	public static EndrexItem ELYTRA_OF_THE_LITTLE_DRAGON;
 	public static EndrexItem REINFORCED_ELYTRA;
 	public static EndrexItem MASK_OF_ENDER;
+	public static EndrexItem MYSTERIOUS_SWORD;
+	public static EndrexItem MYSTERIOUS_PICKAXE;
+	public static EndrexItem MYSTERIOUS_AXE;
 	
 	public static Category CATEGORY_MISCELLANEOUS;
+	public static EndRespawnAnchor END_RESPAWN_ANCHOR;
+	public static MysteriousTeleporter MYSTERIOUS_TELEPORTER;
+	public static EndrexItem MYSTERIOUS_TELEPORTER_LINKER;
 	
 	public static void init(Endrex plugin) {
 		// Resources
@@ -212,6 +226,12 @@ public class EndrexItems {
 				DRAGON_SCALE.getItem(), DRAGON_SCALE.getItem(), DRAGON_SCALE.getItem(),
 				SlimefunItems.REINFORCED_PLATE, SlimefunItems.REINFORCED_PLATE, SlimefunItems.REINFORCED_PLATE
 		}).registerChain(plugin);
+		{
+			SlimefunItemStack oreblock = new SlimefunItemStack("MYSTHERIUM_ORE", Material.PURPLE_CONCRETE, "&5Mystherium Ore", "", "&7Very mysterious block");
+			MYSTHERIUM = new EndrexItem(CATEGORY_RESOURCES, new SlimefunItemStack("MYSTHERIUM", Material.PURPLE_DYE, "&5Mystherium", "", "&7Very mysterious thing"), RecipeType.ORE_CRUSHER, new ItemStack[] {oreblock, null, null, null, null, null, null, null, null}).registerChain(plugin);
+			MYSTHERIUM_ORE = new EndrexMineableResource(CATEGORY_RESOURCES, oreblock, 0.09, MYSTHERIUM.getItem()).registerChain(plugin);
+		}
+		MYSTHERIUM_BUCKET = new LiquidBucket(CATEGORY_RESOURCES, new SlimefunItemStack("MYSTHERIUM_BUCKET", EndrexSkulls.MYSTHERIUM_BUCKET, "&bBucket of Mystherium Liquid", "", "&7No you can't pour liquid", "&7yet :(")).registerChain(plugin);
 	}
 	private static void initWeapons(Endrex plugin) {
 		ENDERIUM_SWORD = new EndrexEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, (SlimefunItemStack) new ItemStackWrapper(new SlimefunItemStack(
@@ -245,6 +265,84 @@ public class EndrexItems {
 						ENDERIUM.getItem(), ENDERIUM_SWORD.getItem(), ENDERIUM.getItem(),
 						SlimefunItems.ENDER_LUMP_2, ENDERIUM.getItem(), SlimefunItems.ENDER_LUMP_2
 		}).addHandlerChain(EndrexItems.pearlStealer(0.75)).registerChain(plugin);
+		
+		MYSTERIOUS_SWORD = new MysteriousEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, new SlimefunItemStack(
+				"MYSTERIOUS_SWORD",
+				Material.IRON_SWORD,
+				"&dMysterious Sword",
+				EndrexLoreBuilder.clickToUnlock(),
+				"",
+				"&fGet a random enchantments",
+				"&feverytime you craft it."
+				), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+				null, MYSTHERIUM.getItem(), null,
+				null, MYSTHERIUM.getItem(), null,
+				null, new ItemStack(Material.STICK), null
+		}).addEnchantment(
+				// Spagetti code
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.20, 1, 1),
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.12, 2, 4),
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.05, 5, 6),
+				new RandomEnchantmentEntry(Enchantment.DAMAGE_ALL, 0.08, 1, 2),
+				new RandomEnchantmentEntry(Enchantment.DAMAGE_ALL, 0.05, 3, 3),
+				new RandomEnchantmentEntry(Enchantment.DAMAGE_ALL, 0.02, 4, 6),
+				new RandomEnchantmentEntry(Enchantment.DAMAGE_UNDEAD, 0.03, 1, 2),
+				new RandomEnchantmentEntry(Enchantment.DAMAGE_ARTHROPODS, 0.03, 1, 2),
+				new RandomEnchantmentEntry(Enchantment.FIRE_ASPECT, 0.01, 1, 2),
+				
+				new RandomEnchantmentEntry(Enchantment.MENDING, 0.01, 1, 1)
+				).registerChain(plugin);
+		MYSTERIOUS_PICKAXE = new MysteriousEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, new SlimefunItemStack(
+				"MYSTERIOUS_PICKAXE",
+				Material.IRON_PICKAXE,
+				"&dMysterious Pickaxe",
+				EndrexLoreBuilder.clickToUnlock(),
+				"",
+				"&fGet a random enchantments",
+				"&feverytime you craft it."
+				), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+				MYSTHERIUM.getItem(), MYSTHERIUM.getItem(), MYSTHERIUM.getItem(),
+				null, new ItemStack(Material.STICK), null,
+				null, new ItemStack(Material.STICK), null
+		}).addEnchantment(
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.20, 1, 1),
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.12, 2, 4),
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.05, 5, 6),
+				new RandomEnchantmentEntry(Enchantment.DIG_SPEED, 0.15, 1, 2),
+				new RandomEnchantmentEntry(Enchantment.DIG_SPEED, 0.09, 3, 5),
+				new RandomEnchantmentEntry(Enchantment.DIG_SPEED, 0.06, 6, 8),
+				new RandomEnchantmentEntry(Enchantment.LOOT_BONUS_BLOCKS, 0.10, 1, 1),
+				new RandomEnchantmentEntry(Enchantment.LOOT_BONUS_BLOCKS, 0.07, 2, 4),
+				new RandomEnchantmentEntry(Enchantment.LOOT_BONUS_BLOCKS, 0.03, 5, 6),
+
+				new RandomEnchantmentEntry(Enchantment.MENDING, 0.01, 1, 1),
+				new RandomEnchantmentEntry(Enchantment.SILK_TOUCH, 0.01, 1, 2) // Silk Touch II confirmed by Jeb
+				).registerChain(plugin);
+		MYSTERIOUS_AXE = new MysteriousEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, new SlimefunItemStack(
+				"MYSTERIOUS_AXE",
+				Material.IRON_AXE,
+				"&dMysterious Axe",
+				EndrexLoreBuilder.clickToUnlock(),
+				"",
+				"&fGet a random enchantments",
+				"&feverytime you craft it."
+				), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+				MYSTHERIUM.getItem(), MYSTHERIUM.getItem(), null,
+				MYSTHERIUM.getItem(), new ItemStack(Material.STICK), null,
+				null, new ItemStack(Material.STICK), null
+		}).addEnchantment(
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.20, 1, 1),
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.12, 2, 4),
+				new RandomEnchantmentEntry(Enchantment.DURABILITY, 0.05, 5, 6),
+				new RandomEnchantmentEntry(Enchantment.DIG_SPEED, 0.15, 1, 2),
+				new RandomEnchantmentEntry(Enchantment.DIG_SPEED, 0.09, 3, 5),
+				new RandomEnchantmentEntry(Enchantment.DIG_SPEED, 0.06, 6, 8),
+				new RandomEnchantmentEntry(Enchantment.DAMAGE_ALL, 0.08, 1, 2),
+				new RandomEnchantmentEntry(Enchantment.DAMAGE_ALL, 0.05, 3, 3),
+
+				new RandomEnchantmentEntry(Enchantment.MENDING, 0.01, 1, 1),
+				new RandomEnchantmentEntry(Enchantment.SILK_TOUCH, 0.01, 1, 2) // Silk Touch II confirmed by Jeb
+				).registerChain(plugin);
 	}
 	private static void initEquipments(Endrex plugin) {
 		ELYTRA_OF_THE_LITTLE_DRAGON = new EndrexEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, (SlimefunItemStack) new ItemStackWrapper(new SlimefunItemStack("ELYTRA_OF_THE_LITTLE_DRAGON", Material.ELYTRA, "&eElytra of The Little Dragon", "", "&7It's hard to name items...")).addEnchant(Enchantment.DURABILITY, 2).getItem(), RecipeType.ANCIENT_ALTAR, new ItemStack[] {
@@ -264,7 +362,21 @@ public class EndrexItems {
 		}).registerChain(plugin);
 	}
 	private static void initInterestingThings(Endrex plugin) {
-		
+		END_RESPAWN_ANCHOR = new EndRespawnAnchor(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("END_RESPAWN_ANCHOR", EndrexSkulls.RESPAWN_ANCHOR, "&eEnd Respawn Anchor", "", "&7Allow you to respawn in", "&7The End.", "&7Must provide it with", "&7Enderium blocks to make", "&7it works"), RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+				SlimefunItems.ENDER_LUMP_3, new ItemStack(Material.END_STONE), SlimefunItems.RUNE_ENDER,
+				new ItemStack(Material.END_STONE), new ItemStack(Material.ENCHANTING_TABLE), new ItemStack(Material.END_STONE),
+				SlimefunItems.RUNE_ENDER, new ItemStack(Material.END_STONE), SlimefunItems.ENDER_LUMP_3
+		}).registerChain(plugin);
+		MYSTERIOUS_TELEPORTER = new MysteriousTeleporter(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("MYSTERIOUS_TELEPORTER", EndrexSkulls.MYSTERIOUS_TELEPORTER, "&dMysterious Teleporter", "", "&7Where could you teleport to?", "&7Cost 1 Ender Pearl per", "&7teleportation."), RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+				MYSTHERIUM.getItem(), new ItemStack(Material.CHORUS_FLOWER), MYSTHERIUM.getItem(),
+				SlimefunItems.ENDER_LUMP_2, SlimefunItems.MAGIC_EYE_OF_ENDER, SlimefunItems.ENDER_LUMP_2,
+				new ItemStack(Material.END_STONE), MYSTHERIUM.getItem(), new ItemStack(Material.END_STONE)
+		}).registerChain(plugin);
+		MYSTERIOUS_TELEPORTER_LINKER = new EndrexItem(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("MYSTERIOUS_TELEPORTER_LINKER", Material.BLAZE_ROD, "&dMysterious Teleported Linked", "", "&7Link 2 mysterious teleporters", "&7together.", "&7Destroy after use", "", "&eRight click &7to first teleporter", "&7to bind location.", "&eRight click &7to second teleporter", "&7to link."), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+				null, new ItemStack(Material.ENDER_EYE), null,
+				null, new ItemStack(Material.BLAZE_ROD), null,
+				null, SlimefunItems.ENDER_LUMP_2, null
+		}).registerChain(plugin);
 	}
 	
 	private static EntityKillHandler pearlStealer(double chance) {

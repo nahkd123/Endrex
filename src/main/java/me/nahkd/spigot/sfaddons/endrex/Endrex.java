@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -24,10 +25,13 @@ import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.debug.DebugCommand;
 import me.nahkd.spigot.sfaddons.endrex.handlers.ChunksEventsHandlers;
 import me.nahkd.spigot.sfaddons.endrex.handlers.EntityEventsHandlers;
+import me.nahkd.spigot.sfaddons.endrex.handlers.InventoryEventsHandlers;
+import me.nahkd.spigot.sfaddons.endrex.handlers.PlayerEventsHandlers;
 import me.nahkd.spigot.sfaddons.endrex.handlers.UnusedClass;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.Liquids;
+import me.nahkd.spigot.sfaddons.endrex.items.misc.EndRespawnAnchor;
 import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
 import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
 import me.nahkd.spigot.sfaddons.endrex.schem2.ext.SchematicExtension;
@@ -36,8 +40,10 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 
 	private static boolean syncBlockChange;
 	private static Endrex instance;
+	private static Random runtimeRandomizer;
 	public static boolean allowSyncBlockChange() {return syncBlockChange;}
 	public static Endrex getRunningInstance() {return instance;}
+	public static Random getRandomizer() {return runtimeRandomizer;}
 	
 	private static HashMap<String, nahkdSchematic2> loadedSchemas;
 	public static nahkdSchematic2 getSchematic(String path) {
@@ -65,6 +71,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
     	
         CommandSender logger = getServer().getConsoleSender();
         instance = this;
+        runtimeRandomizer = new Random();
         long timer = System.currentTimeMillis();
         
         // Folders and stuffs
@@ -95,11 +102,15 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         Liquids.init(this);
         EndrexItems.init(this);
         
+        EndRespawnAnchor.init(this);
+        
         Liquids.postInit();
         
         // Events handlers
         getServer().getPluginManager().registerEvents(new ChunksEventsHandlers(), this);
         getServer().getPluginManager().registerEvents(new EntityEventsHandlers(), this);
+        getServer().getPluginManager().registerEvents(new PlayerEventsHandlers(this), this);
+        getServer().getPluginManager().registerEvents(new InventoryEventsHandlers(), this);
         // getServer().getPluginManager().registerEvents(new UnusedClass(), this);
         
         logger.sendMessage("§3[Endrex] §bPlugin enabled in " + (System.currentTimeMillis() - timer) + "ms");

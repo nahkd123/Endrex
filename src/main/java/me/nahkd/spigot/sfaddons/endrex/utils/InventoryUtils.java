@@ -32,7 +32,7 @@ public class InventoryUtils {
 	
 	public static ItemStack changeAmount(ItemStack source, int amount) {
 		source.setAmount(amount);
-		return source;
+		return amount <= 0? null : source;
 	}
 	
 	public static void dropItem(InventoryBlock btype, Block block) {

@@ -100,7 +100,7 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 			// liquid = CustomLiquid.getLiquidByKey(data.getString("liquidtype"));
 			liquid = LiquidStorage.getLiquidType(b);
 		}
-		int oldMb = mb;
+		// int oldMb = mb;
 		
 		// If the input is a bucket, we'll take it instantly
 		ItemStack input = inv.getItemInSlot(getInputSlots()[0]);
@@ -118,7 +118,8 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 				SlimefunUtils.isItemSimilar(input, otherLiquid.bucket, true) &&
 				(liquid == null || mb <= 0 || liquid.equals(otherLiquid)) &&
 				mb + 1000 <= liquidCapacity &&
-				(output == null || output.getType() == Material.AIR || SlimefunUtils.isItemSimilar(output, VANILLA_BUCKET, true))
+				(output == null || output.getType() == Material.AIR || SlimefunUtils.isItemSimilar(output, VANILLA_BUCKET, true)) &&
+				inputs_output.containsKey(otherLiquid)
 				) {
 				mb += 1000;
 				if (liquid == null) liquid = otherLiquid;
@@ -130,24 +131,28 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 		
 		int mbLeft = 0;
 		// Process
-		if (processMbLeft.containsKey(b)) {
-			CustomLiquid processingLiquid = processing.get(b);
-			int processingLeft = processMbLeft.get(b);
-			processingLeft -= mbPerTick;
-			if (processingLeft <= 0) {
-				ItemStack outputItem = inputs_output.get(processingLiquid);
-				inv.pushItem(outputItem, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44);
-				processing.remove(b);
-				processMbLeft.remove(b);
-			} else processMbLeft.put(b, processingLeft);
-			mbLeft = processingLeft;
-		} else if (liquid != null && mb > 0) {
-			// Consume liquid
-			int mbPerItem = inputs_mbPerItem.get(liquid);
-			if (mb >= mbPerItem) {
-				mb -= mbPerItem;
-				processing.put(b, liquid);
-				processMbLeft.put(b, mbPerItem);
+		if (ChargableBlock.getCharge(b) >= jPerTick) {
+			if (processMbLeft.containsKey(b)) {
+				CustomLiquid processingLiquid = processing.get(b);
+				int processingLeft = processMbLeft.get(b);
+				processingLeft -= mbPerTick;
+				if (processingLeft <= 0) {
+					ItemStack outputItem = inputs_output.get(processingLiquid);
+					inv.pushItem(outputItem, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44);
+					processing.remove(b);
+					processMbLeft.remove(b);
+				} else processMbLeft.put(b, processingLeft);
+				mbLeft = processingLeft;
+				
+				ChargableBlock.addCharge(b, -jPerTick);
+			} else if (liquid != null && mb > 0) {
+				// Consume liquid
+				int mbPerItem = inputs_mbPerItem.get(liquid);
+				if (mb >= mbPerItem) {
+					mb -= mbPerItem;
+					processing.put(b, liquid);
+					processMbLeft.put(b, mbPerItem);
+				}
 			}
 		}
 		
@@ -157,7 +162,7 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 			LiquidStorage.setMills(b, mb);
 		}
 		
-		if (liquid == null || mb <= 0) {
+		if (liquid == null || (mb <= 0 && mbLeft <= 0)) {
 			if (!GUI_NOLIQUID.isSimilar(inv.getItemInSlot(13))) inv.replaceExistingItem(13, GUI_NOLIQUID);
 		} else {
 			String name = liquid.defaultDisplay.hasItemMeta() && liquid.defaultDisplay.getItemMeta().hasDisplayName()? liquid.defaultDisplay.getItemMeta().getDisplayName() : "&cI forgot to add the name for this liquid :|";

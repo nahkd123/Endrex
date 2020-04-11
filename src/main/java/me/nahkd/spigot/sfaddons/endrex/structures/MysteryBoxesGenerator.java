@@ -65,7 +65,7 @@ public class MysteryBoxesGenerator extends StructuresGenerator {
 				genX = rand.nextInt(9) + (newChunk.getX() * 16),
 				genZ = rand.nextInt(9) + (newChunk.getZ() * 16),
 				y = 100 + rand.nextInt(32);
-			if (newChunk.getBlock(genX, y, genZ).getBiome() == Biome.SMALL_END_ISLANDS) return;
+			if (world.getBlockAt(genX, y, genZ).getBiome() == Biome.SMALL_END_ISLANDS) return;
 			schem.pasteSchematic(world, new VectorInt(genX, y, genZ), lootTable);
 		}
 	}

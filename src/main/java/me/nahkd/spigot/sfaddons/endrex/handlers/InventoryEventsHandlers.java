@@ -1,0 +1,47 @@
+package me.nahkd.spigot.sfaddons.endrex.handlers;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import me.mrCookieSlime.Slimefun.SlimefunPlugin;
+import me.nahkd.spigot.sfaddons.endrex.Endrex;
+import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
+import me.nahkd.spigot.sfaddons.endrex.items.mysterious.MysteriousEquipment;
+
+public class InventoryEventsHandlers implements Listener {
+	
+	@EventHandler
+	public void click(InventoryClickEvent event) {
+		if (event.getClickedInventory() != event.getInventory()) return;
+		switch (event.getView().getTitle()) {
+		case "Slimefun Guide": return;
+		}
+
+		ItemStack itemStack = event.getCurrentItem();
+		ItemMeta meta = itemStack.getItemMeta();
+		Optional<String> id = SlimefunPlugin.getItemDataService().getItemData(meta);
+		if (id.isPresent() && MysteriousEquipment.getMappedItems().containsKey(id.get())) {
+			MysteriousEquipment equipment = MysteriousEquipment.getMappedItems().get(id.get());
+			if (meta.getLore().get(0).equals("§7Click to unlock")) {
+				// Add crap to the item
+				List<String> lore = meta.getLore();
+				lore.set(0, "§7§oMagically created");
+				meta.setLore(lore);
+				
+				equipment.applyEnchantment(meta);
+				
+				itemStack.setItemMeta(meta);
+				event.setCurrentItem(new ItemStack(itemStack));
+				event.setCancelled(true);
+			}
+		}
+	} 
+	
+}
