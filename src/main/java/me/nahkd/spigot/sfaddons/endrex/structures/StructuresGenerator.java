@@ -3,7 +3,6 @@ package me.nahkd.spigot.sfaddons.endrex.structures;
 import java.util.Collection;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;

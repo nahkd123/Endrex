@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -28,7 +27,6 @@ import org.bukkit.block.data.type.Stairs.Shape;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.nahkd.spigot.sfaddons.endrex.schem2.ext.CustomBlockData;
 import me.nahkd.spigot.sfaddons.endrex.schem2.ext.SchematicExtension;
 import me.nahkd.spigot.sfaddons.endrex.schem2.loot.LootTableEntry;

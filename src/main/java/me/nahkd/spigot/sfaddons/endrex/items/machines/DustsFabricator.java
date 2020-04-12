@@ -1,9 +1,6 @@
 package me.nahkd.spigot.sfaddons.endrex.items.machines;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
-
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -19,21 +16,18 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
-import me.mrCookieSlime.Slimefun.Setup.SlimefunManager;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.energy.ChargableBlock;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
-import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.CustomLiquid;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.LiquidStorage;
-import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
+@SuppressWarnings("deprecation")
 public class DustsFabricator extends EndrexItem implements EnergyNetComponent, InventoryBlock {
 	
 	private static HashMap<CustomLiquid, Integer> inputs_mbPerItem = new HashMap<CustomLiquid, Integer>();
@@ -75,7 +69,6 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 	public void preRegister() {
 		addItemHandler(new BlockTicker() {
 			
-			@SuppressWarnings("deprecation")
 			@Override
 			public void tick(Block b, SlimefunItem item, Config data) {
 				try {
@@ -91,7 +84,6 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 	}
 	
 	private static final ItemStack VANILLA_BUCKET = new ItemStack(Material.BUCKET);
-	@SuppressWarnings("deprecation")
 	private void onTick(Block b, SlimefunItem sfi, Config data) {
 		BlockMenu inv = BlockStorage.getInventory(b);
 		CustomLiquid liquid = null;

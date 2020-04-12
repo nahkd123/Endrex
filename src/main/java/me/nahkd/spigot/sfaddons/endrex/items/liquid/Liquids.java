@@ -6,7 +6,6 @@ import org.bukkit.inventory.ItemStack;
 
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
-import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 

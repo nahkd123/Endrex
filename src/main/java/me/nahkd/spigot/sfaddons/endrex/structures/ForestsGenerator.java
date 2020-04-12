@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -47,7 +46,7 @@ public class ForestsGenerator extends StructuresGenerator {
 				Location loc = highestBlock.getLocation();
 				nahkdSchematic2 treeSchem = this.trees.get(rand.nextInt(this.trees.size()));
 				if (canSafelyGenerate(treeSchem.size, loc, Arrays.asList(Material.END_STONE))) {
-					Bukkit.broadcastMessage("" + loc.getBlockX() + " - " + loc.getBlockZ());
+					// Bukkit.broadcastMessage("" + loc.getBlockX() + " - " + loc.getBlockZ());
 					treeSchem.pasteSchematic(world, new VectorInt(genX, highestBlock.getY(), genZ), null, Arrays.asList(Material.AIR));
 				}
 				genX += rand.nextInt(20) - 3;

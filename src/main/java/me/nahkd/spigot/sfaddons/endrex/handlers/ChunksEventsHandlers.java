@@ -2,7 +2,6 @@ package me.nahkd.spigot.sfaddons.endrex.handlers;
 
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

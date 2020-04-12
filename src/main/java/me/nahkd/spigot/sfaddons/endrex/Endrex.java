@@ -1,37 +1,23 @@
 package me.nahkd.spigot.sfaddons.endrex;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Random;
 
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
-import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import me.nahkd.spigot.sfaddons.endrex.debug.DebugCommand;
 import me.nahkd.spigot.sfaddons.endrex.handlers.ChunksEventsHandlers;
 import me.nahkd.spigot.sfaddons.endrex.handlers.EntityEventsHandlers;
 import me.nahkd.spigot.sfaddons.endrex.handlers.InventoryEventsHandlers;
 import me.nahkd.spigot.sfaddons.endrex.handlers.PlayerEventsHandlers;
-import me.nahkd.spigot.sfaddons.endrex.handlers.UnusedClass;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.Liquids;
 import me.nahkd.spigot.sfaddons.endrex.items.misc.EndRespawnAnchor;
+import me.nahkd.spigot.sfaddons.endrex.items.misc.MysteriousTeleporter;
 import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
 import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
 import me.nahkd.spigot.sfaddons.endrex.schem2.ext.SchematicExtension;
@@ -92,7 +78,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         loadSchematic("structures/other/mysterybox.nsm");
         
         // Commands
-        getCommand("endrexde").setExecutor(new DebugCommand());
+        // getCommand("endrexde").setExecutor(new DebugCommand());
         
         // Config
         syncBlockChange = getConfig().getBoolean("performance.syncMachineBlockChange", true);
@@ -103,6 +89,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         EndrexItems.init(this);
         
         EndRespawnAnchor.init(this);
+        MysteriousTeleporter.init(this);
         
         Liquids.postInit();
         

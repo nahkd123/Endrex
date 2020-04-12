@@ -5,7 +5,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.EntityType;
@@ -19,7 +18,6 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunMachine;
-import me.mrCookieSlime.Slimefun.Objects.handlers.BlockUseHandler;
 import me.mrCookieSlime.Slimefun.Objects.handlers.EntityKillHandler;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
@@ -352,7 +350,7 @@ public class EndrexItems {
 		}).registerChain(plugin);
 		REINFORCED_ELYTRA = new EndrexEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, (SlimefunItemStack) new ItemStackWrapper(new SlimefunItemStack("REINFORCED_ELYTRA", Material.ELYTRA, "&eReinforced Elytra")).addEnchant(Enchantment.DURABILITY, 5).getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
 				null, SlimefunItems.ELYTRA_SCALE, null,
-				DRAGON_SCALE.getItem(), SlimefunItems.ELYTRA, DRAGON_SCALE.getItem(),
+				REINFORCED_DRAGON_SCALE.getItem(), SlimefunItems.ELYTRA, REINFORCED_DRAGON_SCALE.getItem(),
 				SlimefunItems.REINFORCED_PLATE, SlimefunItems.ELYTRA_SCALE, SlimefunItems.REINFORCED_PLATE
 		}).registerChain(plugin);
 		MASK_OF_ENDER = new EndrexEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, new SlimefunItemStack("MASK_OF_ENDER", Material.LEATHER_HELMET, Color.AQUA, "&bMask of Ender", "", "&7It must be something", "&7special..."), RecipeType.ARMOR_FORGE, new ItemStack[] {
@@ -367,7 +365,7 @@ public class EndrexItems {
 				new ItemStack(Material.END_STONE), new ItemStack(Material.ENCHANTING_TABLE), new ItemStack(Material.END_STONE),
 				SlimefunItems.RUNE_ENDER, new ItemStack(Material.END_STONE), SlimefunItems.ENDER_LUMP_3
 		}).registerChain(plugin);
-		MYSTERIOUS_TELEPORTER = new MysteriousTeleporter(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("MYSTERIOUS_TELEPORTER", EndrexSkulls.MYSTERIOUS_TELEPORTER, "&dMysterious Teleporter", "", "&7Where could you teleport to?", "&7Cost 1 Ender Pearl per", "&7teleportation."), RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+		MYSTERIOUS_TELEPORTER = new MysteriousTeleporter(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("MYSTERIOUS_TELEPORTER", EndrexSkulls.MYSTERIOUS_TELEPORTER, "&dMysterious Teleporter", "", "&7Where could you teleport to?", "&7Cost 1 Mystherium per", "&7teleportation."), RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
 				MYSTHERIUM.getItem(), new ItemStack(Material.CHORUS_FLOWER), MYSTHERIUM.getItem(),
 				SlimefunItems.ENDER_LUMP_2, SlimefunItems.MAGIC_EYE_OF_ENDER, SlimefunItems.ENDER_LUMP_2,
 				new ItemStack(Material.END_STONE), MYSTHERIUM.getItem(), new ItemStack(Material.END_STONE)

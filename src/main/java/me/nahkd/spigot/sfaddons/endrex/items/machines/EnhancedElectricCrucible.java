@@ -19,7 +19,6 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
-import me.mrCookieSlime.Slimefun.Setup.SlimefunManager;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.energy.ChargableBlock;
@@ -34,6 +33,7 @@ import me.nahkd.spigot.sfaddons.endrex.items.liquid.LiquidStorage;
 import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
+@SuppressWarnings("deprecation")
 public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetComponent, InventoryBlock {
 	
 	// Since ItemStack do overrides hashCode(), we can use HashMap
@@ -78,7 +78,6 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 	public void preRegister() {
 		addItemHandler(new BlockTicker() {
 			
-			@SuppressWarnings("deprecation")
 			@Override
 			public void tick(Block b, SlimefunItem item, Config data) {
 				try {
@@ -94,7 +93,6 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 	}
 	
 	private static final ItemStack VANILLA_BUCKET = new ItemStack(Material.BUCKET);
-	@SuppressWarnings("deprecation")
 	private void onTick(Block b, SlimefunItem sfi, Config data) {
 		BlockMenu inv = BlockStorage.getInventory(b);
 		CustomLiquid liquid = null;

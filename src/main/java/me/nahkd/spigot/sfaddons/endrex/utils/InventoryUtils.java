@@ -29,6 +29,17 @@ public class InventoryUtils {
 		default: break;
 		}
 	}
+	public static void setHand(PlayerInventory inv, EquipmentSlot slot, ItemStack item) {
+		switch (slot) {
+		case HAND:
+			inv.setItemInMainHand(item);
+			return;
+		case OFF_HAND:
+			inv.setItemInOffHand(item);
+			return;
+		default: break;
+		}
+	}
 	
 	public static ItemStack changeAmount(ItemStack source, int amount) {
 		source.setAmount(amount);

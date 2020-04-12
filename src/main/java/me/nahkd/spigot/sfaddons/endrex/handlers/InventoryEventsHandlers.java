@@ -3,7 +3,6 @@ package me.nahkd.spigot.sfaddons.endrex.handlers;
 import java.util.List;
 import java.util.Optional;
 
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -11,8 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.mrCookieSlime.Slimefun.SlimefunPlugin;
-import me.nahkd.spigot.sfaddons.endrex.Endrex;
-import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.mysterious.MysteriousEquipment;
 
 public class InventoryEventsHandlers implements Listener {

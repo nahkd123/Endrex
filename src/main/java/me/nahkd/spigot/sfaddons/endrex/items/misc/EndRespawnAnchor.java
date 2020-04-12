@@ -80,9 +80,7 @@ public class EndRespawnAnchor extends EndrexItem {
 	}
 	
 	private static HashMap<World, NamespacedKey> worlds;
-	private static Endrex plugin;
 	public static void init(Endrex plugin) {
-		EndRespawnAnchor.plugin = plugin;
 		worlds = new HashMap<World, NamespacedKey>();
 		// Some servers may have more than 1 world with "The End" enviroment
 		for (World world : plugin.getServer().getWorlds()) if (world.getEnvironment() == Environment.THE_END) {

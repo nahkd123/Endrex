@@ -2,12 +2,10 @@ package me.nahkd.spigot.sfaddons.endrex.structures;
 
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 
 import me.nahkd.spigot.sfaddons.endrex.items.resources.EndrexMineableResource;
-import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
 
 public class ResourcesGenerator extends StructuresGenerator {
 
@@ -18,7 +16,7 @@ public class ResourcesGenerator extends StructuresGenerator {
 		for (EndrexMineableResource resource : EndrexMineableResource.getOres()) {
 			double hit = rand.nextDouble();
 			if (hit < resource.generateChance) {
-				Bukkit.broadcastMessage("yes " + newChunk.getX() + " : " + newChunk.getZ());
+				// Bukkit.broadcastMessage("yes " + newChunk.getX() + " : " + newChunk.getZ());
 				resource.generator.onGenerate(newChunk, rand);
 				break;
 			}

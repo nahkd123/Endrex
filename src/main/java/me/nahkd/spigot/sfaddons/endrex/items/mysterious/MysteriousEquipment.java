@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Random;
-
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -45,12 +42,14 @@ public class MysteriousEquipment extends EndrexEquipment {
 	 * @param meta The item meta to apply
 	 */
 	public void applyEnchantment(ItemMeta meta) {
-		for (Entry<Enchantment, List<RandomEnchantmentEntry>> entry : enchs.entrySet()) {
+		boolean enchanted = false;
+		while (!enchanted) for (Entry<Enchantment, List<RandomEnchantmentEntry>> entry : enchs.entrySet()) {
 			Enchantment e = entry.getKey();
 			List<RandomEnchantmentEntry> craps = entry.getValue();
 			
 			for (RandomEnchantmentEntry childOfThoseCraps : craps) if (Math.random() < childOfThoseCraps.chance) {
 				meta.addEnchant(e, childOfThoseCraps.min + (childOfThoseCraps.min == childOfThoseCraps.max? 0 : Endrex.getRandomizer().nextInt(childOfThoseCraps.max - childOfThoseCraps.min)), true);
+				enchanted = true;
 				break;
 			}
 		}
