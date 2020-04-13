@@ -5,8 +5,7 @@ This is a Slimefun addon, that makes "The End" world less boring (I guess?). You
 wild purple trees, or just came here with GEO Miner to gather resources.
 
 ## Builds
-Right not there's no build available yet, but once it's done I'll release the binary at [this](https://github.com/nahkd123/Endrex/releases)
-page, so you can download it.
+You can now download releases on [this](https://github.com/nahkd123/Endrex/releases/tag/v1.0.0) page.
 
 ## Build it yourself
 Endrex uses Maven to build, so you'll need Maven.
