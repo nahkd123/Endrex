@@ -27,27 +27,25 @@ public class MysteryBoxesGenerator extends StructuresGenerator {
 	public MysteryBoxesGenerator() {
 		schem = Endrex.getSchematic("structures/other/mysterybox.nsm");
 		lootTable = Arrays.asList(
-				new LootTableEntry(0.04, new ItemStack(Material.ENDER_PEARL, 3)),
-				new LootTableEntry(0.05, new ItemStack(Material.ENDER_PEARL, 2)),
-				new LootTableEntry(0.06, new ItemStack(Material.ENDER_PEARL, 1)),
+				new LootTableEntry(0.02, new ItemStack(Material.ENDER_PEARL, 3)),
+				new LootTableEntry(0.03, new ItemStack(Material.ENDER_PEARL, 2)),
+				new LootTableEntry(0.03, new ItemStack(Material.ENDER_PEARL, 1)),
 				
-				new LootTableEntry(0.05, new ItemStack(Material.EXPERIENCE_BOTTLE, 6)),
-				new LootTableEntry(0.07, new ItemStack(Material.EXPERIENCE_BOTTLE, 3)),
-				new LootTableEntry(0.08, new ItemStack(Material.EXPERIENCE_BOTTLE, 2)),
+				new LootTableEntry(0.02, new ItemStack(Material.EXPERIENCE_BOTTLE, 6)),
+				new LootTableEntry(0.02, new ItemStack(Material.EXPERIENCE_BOTTLE, 3)),
+				new LootTableEntry(0.03, new ItemStack(Material.EXPERIENCE_BOTTLE, 2)),
 				
-				new LootTableEntry(0.04, new CustomItem(EndrexItems.ENDERIUM.getItem(), 1)),
-				new LootTableEntry(0.02, new CustomItem(EndrexItems.ENDERIUM.getItem(), 2)),
+				new LootTableEntry(0.02, new CustomItem(EndrexItems.ENDERIUM.getItem(), 1)),
+				new LootTableEntry(0.01, new CustomItem(EndrexItems.ENDERIUM.getItem(), 2)),
 
 				new LootTableEntry(0.04, new ItemStack(Material.DIAMOND, 1)),
 				new LootTableEntry(0.03, new ItemStack(Material.DIAMOND, 2)),
-				new LootTableEntry(0.01, new ItemStack(Material.DIAMOND, 3)),
-				new LootTableEntry(0.03, EndrexItems.ENDERIUM_SWORD.getItem()),
-				new LootTableEntry(0.04, EndrexItems.MASK_OF_ENDER.getItem()),
+				new LootTableEntry(0.01, EndrexItems.ENDERIUM_SWORD.getItem()),
+				new LootTableEntry(0.02, EndrexItems.MASK_OF_ENDER.getItem()),
 				new LootTableEntry(0.02, SlimefunItems.RUNE_AIR),
-				new LootTableEntry(0.04, SlimefunItems.RUNE_ENDER),
-				new LootTableEntry(0.01, SlimefunItems.GOLD_24K_BLOCK),
+				new LootTableEntry(0.03, SlimefunItems.RUNE_ENDER),
 				new LootTableEntry(0.02, SlimefunItems.GOLD_16K),
-				new LootTableEntry(0.03, SlimefunItems.BLANK_RUNE)
+				new LootTableEntry(0.01, SlimefunItems.BLANK_RUNE)
 				);
 	}
 	
