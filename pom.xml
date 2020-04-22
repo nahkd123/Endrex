@@ -46,7 +46,7 @@
   				<include>*.yml</include>
   			</includes>
   		</resource>
-  		<resource>
+  		<!--<resource>
   			<directory>${basedir}/src/main/resources</directory>
   			<filtering>false</filtering>
   			<includes>
@@ -54,19 +54,35 @@
   				<include>structures/magictree/*</include>
   				<include>structures/other/*</include>
   			</includes>
-  		</resource>
+  		</resource>-->
   	</resources>
   	<plugins>
   		<plugin>
   			<groupId>org.apache.maven.plugins</groupId>
   			<artifactId>maven-resources-plugin</artifactId>
   			<version>3.1.0</version>
-  			<configuration>
-  				<nonFilteredFileExtensions>
-  					<nonFilteredFileExtension>bin</nonFilteredFileExtension>
-  					<nonFilteredFileExtension>nsm</nonFilteredFileExtension>
-  				</nonFilteredFileExtensions>
-  			</configuration>
+        <configuration>
+            <nonFilteredFileExtensions>
+              <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+            </nonFilteredFileExtensions>
+          </configuration>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>src/main/resources/</directory>
+                </resource>
+              </resources>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>           
+            </configuration>            
+          </execution>
+        </executions>
   		</plugin>
   	</plugins>
   </build>
