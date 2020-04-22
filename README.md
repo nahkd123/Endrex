@@ -20,5 +20,5 @@ Once it's done, you can get the JAR file in ``/target/Endrex v1.0.0.jar``
 ### Build it using Maven command
 ```bash
 cd Endrex
-mvn install
+mvn clean install
 ```
