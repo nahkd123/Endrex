@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * This class is about stuffs in binary
+ * @author nahkd123
+ *
+ */
 public class BinaryUtils {
 	
 	public static void write_16bits(OutputStream stream, int val) throws IOException {

@@ -6,13 +6,26 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import com.sun.istack.internal.Nullable;
+
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
+/**
+ * the biscuit guy said that some of these methods no longer needed. idk where to find
+ * those, so I decide to create my own method.
+ * @author nahkd123
+ *
+ */
 public class InventoryUtils {
 	
-	public static boolean isNotAir(ItemStack item) {
+	/**
+	 * Check if the item is either not null or not air
+	 * @param item
+	 * @return
+	 */
+	public static boolean isNotAir(@Nullable ItemStack item) {
 		return item != null && item.getType() != Material.AIR;
 	}
 	

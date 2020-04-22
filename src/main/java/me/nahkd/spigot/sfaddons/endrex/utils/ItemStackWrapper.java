@@ -5,6 +5,11 @@ import org.bukkit.inventory.ItemFlag;
 
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 
+/**
+ * Wrap around the item stack to do stuffs
+ * @author nahkd123
+ *
+ */
 public class ItemStackWrapper {
 	
 	private CustomItem itemStack;

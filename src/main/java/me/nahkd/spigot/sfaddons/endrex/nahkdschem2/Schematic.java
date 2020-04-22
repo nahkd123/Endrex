@@ -27,17 +27,17 @@ import org.bukkit.block.data.type.Stairs.Shape;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.sun.istack.internal.NotNull;
+
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.CustomBlockData;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.SchematicExtension;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot.LootTableEntry;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot.LootTables;
 
-/*
- * idc if the class name triggered you or not, but if I put the letter 'n'
- * upper case, then it will trigger me.
- */
 /**
- * Another schematic thing huh?
+ * Welcome to nahkdSchematic2! This one is suppose to be inside your plugin, rather than
+ * being a plugin. This one is lightweight, can be shaded into your plugin if you want
+ * to. Soon I'll add this to nahkdAPI2...
  * @author nahkd123
  *
  */
@@ -45,11 +45,19 @@ public class Schematic {
 	
 	HashMap<Integer, Material> mappedIDs;
 	HashMap<Material, Integer> mappedMaterials;
-	public VectorInt size;
+	
+	/**
+	 * The size of the schematic. You can modify this, but don't set it to null,
+	 * otherwise it will casue error.
+	 */
+	@NotNull public VectorInt size;
 	short[] schemData; // We'll use short, because it saves memory
 	short[] blockStates; // States of block, something like stairs and stuffs
 	HashMap<VectorInt, CustomBlockData> customs;
 	
+	/**
+	 * Create an empty schematic
+	 */
 	public Schematic() {
 		mappedIDs = new HashMap<Integer, Material>();
 		mappedMaterials = new HashMap<Material, Integer>();
@@ -59,7 +67,7 @@ public class Schematic {
 	}
 	
 	/**
-	 * Load to schemData
+	 * Load the schematic from region in your world. It then can be used anywhere.
 	 * @param reg The region to load
 	 * @return this
 	 */
@@ -272,6 +280,12 @@ public class Schematic {
 	
 	// WARNING: lots of binary stuffs
 	private static final byte[] HEADER = new byte[] {0x13, (byte) 0xA0, (byte) 0xA1, 0x11};
+	/**
+	 * Write the schematic to stream. This also write custom block data (if present) to
+	 * the stream as well.
+	 * @param stream
+	 * @throws IOException if something went wrong (like no write access or something esle)
+	 */
 	public void writeToStream(OutputStream stream) throws IOException {
 		// Write header (0x13A0A111)
 		stream.write(HEADER);
@@ -296,6 +310,13 @@ public class Schematic {
 		}
 		stream.write(0x00); // Indicator (end of custom data table)
 	}
+	/**
+	 * Read the schematic from stream. This will also read custom block data (if present)
+	 * to this object.
+	 * @param stream
+	 * @return
+	 * @throws IOException
+	 */
 	public Schematic fromStream(InputStream stream) throws IOException {
 		// Make sure we've cleared maps and reseted schematic data
 		mappedIDs.clear();
