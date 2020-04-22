@@ -22,10 +22,10 @@
   		<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
   	</repository>
   	
-  	<repository>
+  	<!--<repository>
   		<id>local-repo</id>
   		<url>file://E/thevaildfolder/spigot 1.15.2/</url>
-  	</repository>
+  	</repository>-->
   	
   	<repository>
   		<id>jitpack.io</id>
