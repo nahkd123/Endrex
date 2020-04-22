@@ -15,13 +15,13 @@ import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
-import me.nahkd.spigot.sfaddons.endrex.schem2.VectorInt;
-import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
-import me.nahkd.spigot.sfaddons.endrex.schem2.loot.LootTableEntry;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.VectorInt;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Schematic;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot.LootTableEntry;
 
 public class MysteryBoxesGenerator extends StructuresGenerator {
 
-	nahkdSchematic2 schem;
+	Schematic schem;
 	List<LootTableEntry> lootTable;
 	
 	public MysteryBoxesGenerator() {

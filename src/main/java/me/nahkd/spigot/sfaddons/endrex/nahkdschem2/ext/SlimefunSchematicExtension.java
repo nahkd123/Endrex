@@ -1,4 +1,4 @@
-package me.nahkd.spigot.sfaddons.endrex.schem2.ext;
+package me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import org.bukkit.block.Block;
 
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.nahkd.spigot.sfaddons.endrex.schem2.BinaryUtils;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.BinaryUtils;
 
 /**
  * It's better to let TheBusyBiscuit improve this, rather than me.

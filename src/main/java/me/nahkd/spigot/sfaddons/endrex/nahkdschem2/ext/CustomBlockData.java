@@ -1,11 +1,11 @@
-package me.nahkd.spigot.sfaddons.endrex.schem2.ext;
+package me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import me.nahkd.spigot.sfaddons.endrex.schem2.BinaryUtils;
-import me.nahkd.spigot.sfaddons.endrex.schem2.VectorInt;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.BinaryUtils;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.VectorInt;
 
 public class CustomBlockData {
 	

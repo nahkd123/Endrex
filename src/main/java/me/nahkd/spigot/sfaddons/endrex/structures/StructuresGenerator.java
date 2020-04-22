@@ -9,14 +9,14 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
-import me.nahkd.spigot.sfaddons.endrex.schem2.VectorInt;
-import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.VectorInt;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Schematic;
 
 public abstract class StructuresGenerator {
 	
 	public abstract void generateStructure(World world, Chunk newChunk, Random rand);
 
-	public static boolean canSafelyGenerate(nahkdSchematic2 structure, Location loc) {
+	public static boolean canSafelyGenerate(Schematic structure, Location loc) {
 		return canSafelyGenerate(structure.size, loc);
 	}
 	public static boolean canSafelyGenerate(VectorInt size, Location loc) {

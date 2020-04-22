@@ -18,9 +18,9 @@ import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.Liquids;
 import me.nahkd.spigot.sfaddons.endrex.items.misc.EndRespawnAnchor;
 import me.nahkd.spigot.sfaddons.endrex.items.misc.MysteriousTeleporter;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Schematic;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.SchematicExtension;
 import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
-import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
-import me.nahkd.spigot.sfaddons.endrex.schem2.ext.SchematicExtension;
 
 public class Endrex extends JavaPlugin implements SlimefunAddon {
 
@@ -31,8 +31,8 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 	public static Endrex getRunningInstance() {return instance;}
 	public static Random getRandomizer() {return runtimeRandomizer;}
 	
-	private static HashMap<String, nahkdSchematic2> loadedSchemas;
-	public static nahkdSchematic2 getSchematic(String path) {
+	private static HashMap<String, Schematic> loadedSchemas;
+	public static Schematic getSchematic(String path) {
 		return loadedSchemas.get(path);
 	}
 	
@@ -66,7 +66,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         if (!cacheFolder.exists()) cacheFolder.mkdir();
 
         SchematicExtension.initDefault(this);
-        loadedSchemas = new HashMap<String, nahkdSchematic2>();
+        loadedSchemas = new HashMap<String, Schematic>();
         logger.sendMessage("§3[Endrex] §bLoading schematics...");
         loadSchematic("structures/village0/house0.nsm");
         loadSchematic("structures/village0/central.nsm");
@@ -112,12 +112,12 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
     public String getBugTrackerURL() {return "https://github.com/nahkd123/Endrex/issues";}
     @Override
     public JavaPlugin getJavaPlugin() {return this;}
-    public nahkdSchematic2 loadSchematicFromResource(String path) {
+    public Schematic loadSchematicFromResource(String path) {
     	try {
-			return new nahkdSchematic2().fromStream(getResource(path));
+			return new Schematic().fromStream(getResource(path));
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new nahkdSchematic2();
+			return new Schematic();
 		}
     }
     public void loadSchematic(String path) {

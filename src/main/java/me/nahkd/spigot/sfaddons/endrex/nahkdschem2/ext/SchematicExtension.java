@@ -1,4 +1,4 @@
-package me.nahkd.spigot.sfaddons.endrex.schem2.ext;
+package me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package me.nahkd.spigot.sfaddons.endrex.schem2;
+package me.nahkd.spigot.sfaddons.endrex.nahkdschem2;
 
 import java.util.ArrayList;
 import java.util.List;

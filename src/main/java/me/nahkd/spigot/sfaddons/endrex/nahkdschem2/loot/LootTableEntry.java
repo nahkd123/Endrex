@@ -1,4 +1,4 @@
-package me.nahkd.spigot.sfaddons.endrex.schem2.loot;
+package me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot;
 
 import org.bukkit.inventory.ItemStack;
 

@@ -9,8 +9,8 @@ import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
-import me.nahkd.spigot.sfaddons.endrex.schem2.VectorInt;
-import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.VectorInt;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Schematic;
 
 /**
  * WHAT? A city of sponges at the end of the game???
@@ -20,7 +20,7 @@ import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
 public class SpongePoweredHouses extends StructuresGenerator {
 
 	double chance;
-	nahkdSchematic2 schem;
+	Schematic schem;
 	
 	public SpongePoweredHouses() {
 		schem = Endrex.getSchematic("structures/other/SpongePowered.nsm");

@@ -1,4 +1,4 @@
-package me.nahkd.spigot.sfaddons.endrex.schem2;
+package me.nahkd.spigot.sfaddons.endrex.nahkdschem2;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,10 +27,10 @@ import org.bukkit.block.data.type.Stairs.Shape;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import me.nahkd.spigot.sfaddons.endrex.schem2.ext.CustomBlockData;
-import me.nahkd.spigot.sfaddons.endrex.schem2.ext.SchematicExtension;
-import me.nahkd.spigot.sfaddons.endrex.schem2.loot.LootTableEntry;
-import me.nahkd.spigot.sfaddons.endrex.schem2.loot.LootTables;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.CustomBlockData;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.SchematicExtension;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot.LootTableEntry;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot.LootTables;
 
 /*
  * idc if the class name triggered you or not, but if I put the letter 'n'
@@ -41,7 +41,7 @@ import me.nahkd.spigot.sfaddons.endrex.schem2.loot.LootTables;
  * @author nahkd123
  *
  */
-public class nahkdSchematic2 {
+public class Schematic {
 	
 	HashMap<Integer, Material> mappedIDs;
 	HashMap<Material, Integer> mappedMaterials;
@@ -50,7 +50,7 @@ public class nahkdSchematic2 {
 	short[] blockStates; // States of block, something like stairs and stuffs
 	HashMap<VectorInt, CustomBlockData> customs;
 	
-	public nahkdSchematic2() {
+	public Schematic() {
 		mappedIDs = new HashMap<Integer, Material>();
 		mappedMaterials = new HashMap<Material, Integer>();
 		customs = new HashMap<VectorInt, CustomBlockData>();
@@ -63,7 +63,7 @@ public class nahkdSchematic2 {
 	 * @param reg The region to load
 	 * @return this
 	 */
-	public nahkdSchematic2 fromRegion(Region reg) {
+	public Schematic fromRegion(Region reg) {
 		// Make sure we've cleared maps and reseted schematic data
 		mappedIDs.clear();
 		mappedMaterials.clear();
@@ -296,7 +296,7 @@ public class nahkdSchematic2 {
 		}
 		stream.write(0x00); // Indicator (end of custom data table)
 	}
-	public nahkdSchematic2 fromStream(InputStream stream) throws IOException {
+	public Schematic fromStream(InputStream stream) throws IOException {
 		// Make sure we've cleared maps and reseted schematic data
 		mappedIDs.clear();
 		mappedMaterials.clear();

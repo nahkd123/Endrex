@@ -12,9 +12,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.nahkd.spigot.sfaddons.endrex.handlers.ChunksEventsHandlers;
-import me.nahkd.spigot.sfaddons.endrex.schem2.Region;
-import me.nahkd.spigot.sfaddons.endrex.schem2.VectorInt;
-import me.nahkd.spigot.sfaddons.endrex.schem2.nahkdSchematic2;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Region;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.VectorInt;
+import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Schematic;
 import me.nahkd.spigot.sfaddons.endrex.structures.StructuresGenerator;
 
 public class DebugCommand implements CommandExecutor {
@@ -22,7 +22,7 @@ public class DebugCommand implements CommandExecutor {
 	World spW;
 	VectorInt sp1;
 	VectorInt sp2;
-	nahkdSchematic2 clip;
+	Schematic clip;
 	
 	public DebugCommand() {
 		spW = null;
@@ -59,14 +59,14 @@ public class DebugCommand implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("loadsp")) {
 				try {
 					FileInputStream i = new FileInputStream(new File("gay.nsm"));
-					clip = new nahkdSchematic2().fromStream(i);
+					clip = new Schematic().fromStream(i);
 					i.close();
 					sender.sendMessage("loaded from /gay.nsm");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			} else if (args[0].equalsIgnoreCase("copy")) {
-				clip = new nahkdSchematic2().fromRegion(new Region(spW, sp1, sp2));
+				clip = new Schematic().fromRegion(new Region(spW, sp1, sp2));
 			} else if (args[0].equalsIgnoreCase("paste")) {
 				clip.pasteSchematic(p.getWorld(), VectorInt.fromLocation(p.getLocation()));
 			} else if (args[0].equalsIgnoreCase("genchunk")) {
