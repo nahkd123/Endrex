@@ -41,17 +41,6 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 	
     @Override
     public void onEnable() {
-        // Read something from your config.yml
-        // Config cfg = new Config(this);
-    	// no, i won't, imma use better config "engine"
-        /*
-        // Slimefun4 also already comes with a bundled version of bStats
-        // You can use bStats to collect usage data about your plugin
-        // More info: https://bstats.org/getting-started
-        // Set bStatsId to the id of your plugin
-        int bStatsId = -1;
-        new Metrics(this, bStatsId);
-        */ // TODO remove messy comments
     	saveResource("config.yml", false);
     	reloadConfig();
     	

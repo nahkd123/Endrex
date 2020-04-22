@@ -27,8 +27,6 @@ import org.bukkit.block.data.type.Stairs.Shape;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import com.sun.istack.internal.NotNull;
-
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.CustomBlockData;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.SchematicExtension;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot.LootTableEntry;
@@ -50,7 +48,7 @@ public class Schematic {
 	 * The size of the schematic. You can modify this, but don't set it to null,
 	 * otherwise it will casue error.
 	 */
-	@NotNull public VectorInt size;
+	public VectorInt size;
 	short[] schemData; // We'll use short, because it saves memory
 	short[] blockStates; // States of block, something like stairs and stuffs
 	HashMap<VectorInt, CustomBlockData> customs;

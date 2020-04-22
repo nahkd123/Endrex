@@ -6,8 +6,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import com.sun.istack.internal.Nullable;
-
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
@@ -25,7 +23,7 @@ public class InventoryUtils {
 	 * @param item
 	 * @return
 	 */
-	public static boolean isNotAir(@Nullable ItemStack item) {
+	public static boolean isNotAir(ItemStack item) {
 		return item != null && item.getType() != Material.AIR;
 	}
 	
