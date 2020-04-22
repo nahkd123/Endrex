@@ -370,7 +370,7 @@ public class EndrexItems {
 				SlimefunItems.ENDER_LUMP_2, SlimefunItems.MAGIC_EYE_OF_ENDER, SlimefunItems.ENDER_LUMP_2,
 				new ItemStack(Material.END_STONE), MYSTHERIUM.getItem(), new ItemStack(Material.END_STONE)
 		}).registerChain(plugin);
-		MYSTERIOUS_TELEPORTER_LINKER = new EndrexItem(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("MYSTERIOUS_TELEPORTER_LINKER", Material.BLAZE_ROD, "&dMysterious Teleported Linked", "", "&7Link 2 mysterious teleporters", "&7together.", "&7Destroy after use", "", "&eRight click &7to first teleporter", "&7to bind location.", "&eRight click &7to second teleporter", "&7to link."), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+		MYSTERIOUS_TELEPORTER_LINKER = new EndrexItem(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("MYSTERIOUS_TELEPORTER_LINKER", Material.BLAZE_ROD, "&dMysterious Teleported Linker", "", "&7Link 2 mysterious teleporters", "&7together.", "&7Destroy after use", "", "&eRight click &7to first teleporter", "&7to bind location.", "&eRight click &7to second teleporter", "&7to link."), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
 				null, new ItemStack(Material.ENDER_EYE), null,
 				null, new ItemStack(Material.BLAZE_ROD), null,
 				null, SlimefunItems.ENDER_LUMP_2, null
