@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.mrCookieSlime.Slimefun.SlimefunPlugin;
 import me.nahkd.spigot.sfaddons.endrex.items.mysterious.MysteriousEquipment;
+import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
 public class InventoryEventsHandlers implements Listener {
 	
@@ -22,6 +23,7 @@ public class InventoryEventsHandlers implements Listener {
 		}
 
 		ItemStack itemStack = event.getCurrentItem();
+		if (!InventoryUtils.isNotAir(itemStack)) return;
 		ItemMeta meta = itemStack.getItemMeta();
 		Optional<String> id = SlimefunPlugin.getItemDataService().getItemData(meta);
 		if (id.isPresent() && MysteriousEquipment.getMappedItems().containsKey(id.get())) {
