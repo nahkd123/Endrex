@@ -80,7 +80,8 @@ public class Schematic {
 		int nextId = 0;
 		List<Block> bs = reg.getBlocks();
 		List<BlockData> states = new ArrayList<BlockData>();
-		int id; int index = 0;
+		int id;
+		int index = 0;
 		for (Block b : bs) {
 			if (!mappedMaterials.containsKey(b.getType())) {
 				mappedIDs.put(id = nextId, b.getType());
@@ -104,7 +105,8 @@ public class Schematic {
 		}
 		
 		blockStates = new short[states.size()];
-		int outputState; index = 0;
+		int outputState;
+		index = 0;
 		for (BlockData state : states) {
 			outputState = 0;
 			if (state instanceof Directional) outputState += directionToNumberThing(((Directional) state).getFacing());
@@ -227,7 +229,10 @@ public class Schematic {
 	 * @param lootTable The loot table, or null for empty chests
 	 */
 	public void pasteSchematic(World w, VectorInt loc, List<LootTableEntry> lootTable, Collection<Material> transparent) {
-		int index = 0; int stateIndex = 0; VectorInt bloc = new VectorInt();
+		int index = 0;
+		int stateIndex = 0;
+		VectorInt bloc = new VectorInt();
+		
 		for (int x = 0; x < size.x; x++) for (int y = 0; y < size.y; y++) for (int z = 0; z < size.z; z++) {
 			Block b = bloc.set(x, y, z).add(loc).toLocation(w).getBlock();
 			bloc.set(x, y, z);
@@ -260,7 +265,7 @@ public class Schematic {
 				stateIndex++;
 			}
 			if (b.getState() instanceof Container && lootTable != null) {
-				// It's -p-i-z-z-a- looting time!
+				// Add loot to container
 				Container container = (Container) b.getState();
 				Inventory inv = container.getInventory();
 				ItemStack[] is = inv.getContents();
@@ -330,7 +335,7 @@ public class Schematic {
 		while ((i = stream.read()) == 0xFF) {
 			int id = BinaryUtils.read_16bits(stream);
 			Material mat = Material.valueOf(BinaryUtils.read_ansii_nulTerminated(stream));
-			BlockData d = mat.createBlockData(); // TODO find a better way to prevent object creation
+			BlockData d = mat.createBlockData();
 			if (isSpecial(d)) specials.add(id);
 			
 			mappedIDs.put(id, mat);
@@ -339,7 +344,8 @@ public class Schematic {
 		if (i == -1) throw new IOException("Corrupted schematic file");
 		
 		// Read block data and stuffs
-		int statesCount = 0; int id;
+		int statesCount = 0;
+		int id;
 		for (int j = 0; j < size.getVolume(); j++) {
 			id = BinaryUtils.read_16bits(stream);
 			schemData[j] = (short) id;
