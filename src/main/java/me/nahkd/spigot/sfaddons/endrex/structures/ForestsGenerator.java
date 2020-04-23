@@ -35,20 +35,15 @@ public class ForestsGenerator extends StructuresGenerator {
 		for (int i = 0; i < mx; i++) rand.nextInt();
 		double forestHit = rand.nextDouble();
 		if (forestHit <= 0.08) {
-			int
-				genX = rand.nextInt(13) + (newChunk.getX() * 16),
+			int genX = rand.nextInt(13) + (newChunk.getX() * 16),
 				genZ = rand.nextInt(13) + (newChunk.getZ() * 16);
 			int trees = rand.nextInt(5) + 2;
 			for (int treeIndex = 0; treeIndex < trees; treeIndex++) {
-				// Location loc = new Location(world, genX, 10, genZ);
-				//Block highestBlock = getHighestY(loc);
 				Block highestBlock = world.getHighestBlockAt(genX, genZ);
 				Location loc = highestBlock.getLocation();
 				Schematic treeSchem = this.trees.get(rand.nextInt(this.trees.size()));
-				if (canSafelyGenerate(treeSchem.size, loc, Arrays.asList(Material.END_STONE))) {
-					// Bukkit.broadcastMessage("" + loc.getBlockX() + " - " + loc.getBlockZ());
+				if (canSafelyGenerate(treeSchem.size, loc, Arrays.asList(Material.END_STONE)))
 					treeSchem.pasteSchematic(world, new VectorInt(genX, highestBlock.getY(), genZ), null, Arrays.asList(Material.AIR));
-				}
 				genX += rand.nextInt(20) - 3;
 				genZ += rand.nextInt(20) - 3;
 			}

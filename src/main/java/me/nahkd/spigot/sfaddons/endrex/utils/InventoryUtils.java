@@ -5,6 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
@@ -73,6 +74,15 @@ public class InventoryUtils {
 				inv.replaceExistingItem(s, null);
 			}
 		}
+	}
+	
+	public static String getFriendlyName(ItemStack item) {
+		if (!isNotAir(item)) return "Air";
+		if (item.hasItemMeta()) {
+			ItemMeta meta = item.getItemMeta();
+			if (meta.hasDisplayName()) return meta.getDisplayName();
+			else return "";
+		} else return "";
 	}
 	
 }

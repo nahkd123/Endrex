@@ -1,6 +1,8 @@
 package me.nahkd.spigot.sfaddons.endrex.items.machines;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
@@ -10,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
@@ -34,7 +37,7 @@ import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
 @SuppressWarnings("deprecation")
-public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetComponent, InventoryBlock {
+public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetComponent, InventoryBlock, RecipeDisplayItem {
 	
 	// Since ItemStack do overrides hashCode(), we can use HashMap
 	// Since 1.15 i guess
@@ -44,6 +47,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 	// Note that object creation uses at least 16 bytes
 	private static HashMap<Block, CustomLiquid> processing = new HashMap<Block, CustomLiquid>();
 	private static HashMap<Block, Integer> processMbLeft = new HashMap<Block, Integer>();
+	private static ArrayList<ItemStack> recipesDisplay = new ArrayList<ItemStack>();
 	
 	private final int mbPerTick;
 	private final int jPerTick;
@@ -59,7 +63,6 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		registerBlockHandler(id, (player, block, tool, reason) -> {
 			BlockMenu inv = BlockStorage.getInventory(block);
 			if (inv != null) {
-				// Drop items in inventory
 				InventoryUtils.dropItem(this, block);
 				
 				processing.remove(block);
@@ -72,6 +75,12 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 	public static void addRecipe(ItemStack input, CustomLiquid type, int output) {
 		inputs_liquidTypes.put(input, type);
 		inputs_liquidAmount.put(input, output);
+		recipesDisplay.add(new CustomItem(
+				input,
+				"&f" + InventoryUtils.getFriendlyName(input),
+				"&8\u21E8 &7Produce &f" + InventoryUtils.getFriendlyName(type.defaultDisplay),
+				"&8\u21E8 &e" + output + " &7MB/item"
+				));
 	}
 	
 	@Override
@@ -196,8 +205,6 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		}
 	}
 	
-	// TODO should we create another thing called "liquid storage block"?
-
 	private static final int[] BGINPUTSLOTS = {0, 1, 2, 9, 11, 18, 19, 20};
 	private static final int[] BGINFOSLOTS = {3, 4, 5, 12, 14, 21, 22, 23};
 	private static final int[] BGOUTPUTSLOTS = {6, 7, 8, 15, 17, 24, 25, 26};
@@ -230,5 +237,10 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 
 	@Override
 	public int[] getOutputSlots() {return new int[] {16};}
+
+	@Override
+	public List<ItemStack> getDisplayRecipes() {
+		return recipesDisplay;
+	}
 	
 }

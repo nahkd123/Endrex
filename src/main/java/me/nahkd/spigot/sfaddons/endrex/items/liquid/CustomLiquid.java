@@ -38,7 +38,9 @@ public class CustomLiquid {
 		inited.put(this.key, this);
 	}
 	
+	/** A overrideable method */
 	public boolean canConvertTo(CustomLiquid target) {return false;}
+	/** A overrideable method */
 	public int convertTo(CustomLiquid target, int millibucketFrom) {return millibucketFrom;}
 	public boolean hasBucket() {return bucket != null && bucket.getType() != Material.AIR;}
 	

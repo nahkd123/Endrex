@@ -57,8 +57,7 @@ public class MysteryBoxesGenerator extends StructuresGenerator {
 		for (int i = 0; i < mx; i++) rand.nextInt();
 		double hit = rand.nextDouble();
 		if (hit <= 0.03) {
-			int
-				genX = rand.nextInt(9) + (newChunk.getX() * 16),
+			int genX = rand.nextInt(9) + (newChunk.getX() * 16),
 				genZ = rand.nextInt(9) + (newChunk.getZ() * 16),
 				y = 100 + rand.nextInt(32);
 			if (world.getBlockAt(genX, y, genZ).getBiome() == Biome.SMALL_END_ISLANDS) return;

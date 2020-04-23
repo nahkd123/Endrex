@@ -41,13 +41,15 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 	
     @Override
     public void onEnable() {
+        long timer = System.currentTimeMillis();
+        instance = this;
+    	
+    	// hmm...
     	saveResource("config.yml", false);
     	reloadConfig();
     	
         CommandSender logger = getServer().getConsoleSender();
-        instance = this;
         runtimeRandomizer = new Random();
-        long timer = System.currentTimeMillis();
         
         // Folders and stuffs
         if (!getDataFolder().exists()) getDataFolder().mkdir();
@@ -66,12 +68,10 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         loadSchematic("structures/other/SpongePowered.nsm");
         loadSchematic("structures/other/mysterybox.nsm");
         
-        // Commands
-        // getCommand("endrexde").setExecutor(new DebugCommand());
-        
         // Config
         syncBlockChange = getConfig().getBoolean("performance.syncMachineBlockChange", true);
         
+        // Setting up craps
         EndrexSkulls.init();
         EndrexRecipeType.init(this);
         Liquids.init(this);
@@ -94,7 +94,14 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public void onDisable() {
-        // Logic for disabling the plugin...
+        long timer = System.currentTimeMillis();
+        CommandSender logger = getServer().getConsoleSender();
+        
+    	// Set stuffs to null to prevent memory leaking (i guess?)
+    	instance = null;
+    	runtimeRandomizer = null;
+    	loadedSchemas.clear(); loadedSchemas = null;
+        logger.sendMessage("§3[Endrex] §bPlugin disabled in " + (System.currentTimeMillis() - timer) + "ms");
     }
 
     @Override
