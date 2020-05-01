@@ -24,4 +24,24 @@ public class EndrexUtils {
 		SkullBlock.setFromBase64(b, base64);
 	}
 	
+	public static String trimLeft(String input) {
+		char[] cs = input.toCharArray();
+		int p = 0;
+		while (cs[p] == ' ') p++;
+		return input.substring(p);
+	}
+	public static String trimRight(String input) {
+		char[] cs = input.toCharArray();
+		int p = cs.length - 1;
+		while (cs[p] == ' ') p--;
+		return input.substring(0, p + 1);
+	}
+	public static String trim(String input) {
+		char[] cs = input.toCharArray();
+		int l = 0, r = cs.length - 1;
+		while (cs[l] == ' ') l++;
+		while (cs[r] == ' ') r--;
+		return input.substring(l, r + 1);
+	}
+	
 }

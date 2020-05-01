@@ -7,6 +7,10 @@ options:
       magictree:
         min: 2
         max: 12
+  language: en
+  # Available languages: en (default), custom
+  # To use custom language, simply create a new file called "lang.txt" in plugin data folder
+  # (/plugins/Endrex/lang.txt).
 
 performance:
   # false might give better performance, but won't update block texture on different states.

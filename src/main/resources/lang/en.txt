@@ -1,0 +1,10 @@
+# English
+# made by nahkd123
+display.dustsfabricator.noliquid \
+    &cNo Liquid
+    &7Put a bucket of liquid
+    &7in the input slot and take
+    &7it from the bucket output
+    &7slot.
+display.dustsfabricator.input = &aBucket Input
+display.dustsfabricator.output = &bBucket Output
