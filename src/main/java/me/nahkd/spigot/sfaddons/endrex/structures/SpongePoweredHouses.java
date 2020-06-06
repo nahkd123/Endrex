@@ -24,7 +24,7 @@ public class SpongePoweredHouses extends StructuresGenerator {
 	
 	public SpongePoweredHouses() {
 		schem = Endrex.getSchematic("structures/other/SpongePowered.nsm");
-		chance = Endrex.getRunningInstance().getConfig().getDouble("options.structures.spongePowered", 0.05);
+		chance = Endrex.getInstance().getConfig().getDouble("options.structures.spongePowered", 0.05);
 	}
 	
 	@Override

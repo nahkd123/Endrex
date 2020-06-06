@@ -198,7 +198,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 			// Trigger block update
 			final CustomLiquid liquidFinal = liquid;
 			final int mbFinal = mb;
-			Bukkit.getScheduler().runTask(Endrex.getRunningInstance(), () -> {
+			Bukkit.getScheduler().runTask(Endrex.getInstance(), () -> {
 				if (mbFinal > 0 && liquidFinal != null) EndrexUtils.setSkullFromHash(b, liquidFinal.crucibleSkullHash);
 				else EndrexUtils.setSkullFromHash(b, EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY_HASH);
 			});

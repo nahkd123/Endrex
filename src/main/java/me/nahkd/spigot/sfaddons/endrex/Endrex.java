@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import me.nahkd.spigot.sfaddons.endrex.handlers.ChunksEventsHandlers;
 import me.nahkd.spigot.sfaddons.endrex.handlers.EntityEventsHandlers;
@@ -23,12 +23,12 @@ import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.ext.SchematicExtension;
 import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
 
 public class Endrex extends JavaPlugin implements SlimefunAddon {
+    private static Endrex INSTANCE;
+    private final CommandSender sender = getServer().getConsoleSender();
 
 	private static boolean syncBlockChange;
-	private static Endrex instance;
 	private static Random runtimeRandomizer;
 	public static boolean allowSyncBlockChange() {return syncBlockChange;}
-	public static Endrex getRunningInstance() {return instance;}
 	public static Random getRandomizer() {return runtimeRandomizer;}
 	
 	private static HashMap<String, Schematic> loadedSchemas;
@@ -38,17 +38,22 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 	
 	private static File cacheFolder;
 	public static File getCacheFolder() {return cacheFolder;}
-	
+
+    @Override
+    public void onLoad() {
+        /* Reduce hook error */
+	    INSTANCE = this;
+    }
+
     @Override
     public void onEnable() {
         long timer = System.currentTimeMillis();
-        instance = this;
-    	
-    	// hmm...
-    	saveResource("config.yml", false);
+
+        if (!(new File(getDataFolder(), "config.yml").exists())) {
+            saveResource("config.yml", false);
+        }
     	reloadConfig();
-    	
-        CommandSender logger = getServer().getConsoleSender();
+
         runtimeRandomizer = new Random();
         
         // Folders and stuffs
@@ -57,8 +62,8 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         if (!cacheFolder.exists()) cacheFolder.mkdir();
 
         SchematicExtension.initDefault(this);
-        loadedSchemas = new HashMap<String, Schematic>();
-        logger.sendMessage("§3[Endrex] §bLoading schematics...");
+        loadedSchemas = new HashMap<>();
+        sender.sendMessage("§3[Endrex] §bLoading schematics...");
         loadSchematic("structures/village0/house0.nsm");
         loadSchematic("structures/village0/central.nsm");
         loadSchematic("structures/magictree/0.nsm");
@@ -89,7 +94,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         getServer().getPluginManager().registerEvents(new InventoryEventsHandlers(), this);
         // getServer().getPluginManager().registerEvents(new UnusedClass(), this);
         
-        logger.sendMessage("§3[Endrex] §bPlugin enabled in " + (System.currentTimeMillis() - timer) + "ms");
+        sender.sendMessage("§3[Endrex] §bPlugin enabled in " + (System.currentTimeMillis() - timer) + "ms");
     }
 
     @Override
@@ -98,7 +103,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         CommandSender logger = getServer().getConsoleSender();
         
     	// Set stuffs to null to prevent memory leaking (i guess?)
-    	instance = null;
+    	INSTANCE = null;
     	runtimeRandomizer = null;
     	loadedSchemas.clear(); loadedSchemas = null;
         logger.sendMessage("§3[Endrex] §bPlugin disabled in " + (System.currentTimeMillis() - timer) + "ms");
@@ -117,8 +122,12 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 		}
     }
     public void loadSchematic(String path) {
-    	System.out.println("Loading " + path + " from jar file...");
+    	sender.sendMessage("Loading " + path + " from jar file...");
     	loadedSchemas.put(path, loadSchematicFromResource(path));
     }
-    
+
+    public static Endrex getInstance() {
+	    return INSTANCE;
+    }
+
 }

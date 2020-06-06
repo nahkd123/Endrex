@@ -31,7 +31,7 @@ public class ChunksEventsHandlers implements Listener {
 	
 	@EventHandler
 	public void chunkLoad(ChunkLoadEvent event) {
-		if (event.isNewChunk() && Endrex.getRunningInstance().getConfig().getBoolean("options.generate-structure", true)) {
+		if (event.isNewChunk() && Endrex.getInstance().getConfig().getBoolean("options.generate-structure", true)) {
 			chunkGen(event.getChunk());
 		}
 	}
