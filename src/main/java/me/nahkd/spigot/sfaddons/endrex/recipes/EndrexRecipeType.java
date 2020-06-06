@@ -15,7 +15,6 @@ import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
  *
  */
 public class EndrexRecipeType extends RecipeType {
-
 	public static EndrexRecipeType LIQUID_STORAGE;
 	public static EndrexRecipeType DUSTS_FABRICATOR;
 	public static EndrexRecipeType KILL_ENDER_DRAGON;
@@ -31,5 +30,4 @@ public class EndrexRecipeType extends RecipeType {
 	public EndrexRecipeType(NamespacedKey key, ItemStack item) {
 		super(key, item);
 	}
-
 }

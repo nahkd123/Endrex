@@ -1,9 +1,6 @@
 package me.nahkd.spigot.sfaddons.endrex.structures;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -17,11 +14,9 @@ import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.VectorInt;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Schematic;
 
 public class ForestsGenerator extends StructuresGenerator {
-
-	List<Schematic> trees;
+	final List<Schematic> trees = new ArrayList<>();
 	
 	public ForestsGenerator() {
-		trees = new ArrayList<Schematic>();
 		trees.add(Endrex.getSchematic("structures/magictree/0.nsm"));
 		trees.add(Endrex.getSchematic("structures/magictree/1.nsm"));
 		trees.add(Endrex.getSchematic("structures/magictree/2.nsm"));
@@ -42,12 +37,11 @@ public class ForestsGenerator extends StructuresGenerator {
 				Block highestBlock = world.getHighestBlockAt(genX, genZ);
 				Location loc = highestBlock.getLocation();
 				Schematic treeSchem = this.trees.get(rand.nextInt(this.trees.size()));
-				if (canSafelyGenerate(treeSchem.size, loc, Arrays.asList(Material.END_STONE)))
-					treeSchem.pasteSchematic(world, new VectorInt(genX, highestBlock.getY(), genZ), null, Arrays.asList(Material.AIR));
+				if (canSafelyGenerate(treeSchem.size, loc, Collections.singletonList(Material.END_STONE)))
+					treeSchem.pasteSchematic(world, new VectorInt(genX, highestBlock.getY(), genZ), null, Collections.singletonList(Material.AIR));
 				genX += rand.nextInt(20) - 3;
 				genZ += rand.nextInt(20) - 3;
 			}
 		}
 	}
-
 }

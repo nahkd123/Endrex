@@ -20,7 +20,6 @@ import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.Schematic;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.loot.LootTableEntry;
 
 public class MysteryBoxesGenerator extends StructuresGenerator {
-
 	Schematic schem;
 	List<LootTableEntry> lootTable;
 	
@@ -45,8 +44,7 @@ public class MysteryBoxesGenerator extends StructuresGenerator {
 				new LootTableEntry(0.02, SlimefunItems.RUNE_AIR),
 				new LootTableEntry(0.03, SlimefunItems.RUNE_ENDER),
 				new LootTableEntry(0.02, SlimefunItems.GOLD_16K),
-				new LootTableEntry(0.01, SlimefunItems.BLANK_RUNE)
-				);
+				new LootTableEntry(0.01, SlimefunItems.BLANK_RUNE));
 	}
 	
 	@Override

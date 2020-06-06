@@ -34,9 +34,7 @@ public class SpongePoweredHouses extends StructuresGenerator {
 		int mx = rand.nextInt(25);
 		for (int i = 0; i < mx; i++) rand.nextInt();
 		if (rand.nextDouble() <= chance) {
-			int
-					genX = rand.nextInt(13) + (newChunk.getX() * 16),
-					genZ = rand.nextInt(13) + (newChunk.getZ() * 16);
+			int genX = rand.nextInt(13) + (newChunk.getX() * 16), genZ = rand.nextInt(13) + (newChunk.getZ() * 16);
 			Location loc = new Location(world, genX, 10, genZ);
 			Block highestBlock = getHighestY(loc);
 			if (canSafelyGenerate(schem, highestBlock.getLocation())) {
