@@ -13,12 +13,12 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
+import io.github.thebusybiscuit.slimefun4.core.handlers.EntityKillHandler;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunMachine;
-import me.mrCookieSlime.Slimefun.Objects.handlers.EntityKillHandler;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
@@ -180,7 +180,7 @@ public class EndrexItems {
 	}
 	private static void initResources(Endrex plugin) {
 		ENDER_PEARL_ORE = new EndrexResourceItem(plugin, new SlimefunItemStack("ENDER_PEARL_ORE", EndrexSkulls.PEARL_ORE, "&fEnder Pearl Ore", "", "&7How about throwing it away?"), 4, 19)
-				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.ENDER_PEARL, 4))
+				.addMachineRecipe((RecipeDisplayItem) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.ENDER_PEARL, 4))
 				.itemUseHandler((e) -> {
 					e.getPlayer().launchProjectile(EnderPearl.class);
 					e.cancel();
@@ -188,24 +188,24 @@ public class EndrexItems {
 				})
 				.registerChain(plugin);
 		CHORUS_ORE = new EndrexResourceItem(plugin, new SlimefunItemStack("CHORUS_ORE", EndrexSkulls.CHORUS_ORE, "&fChorus Ore", "", "&7Even though it's \"Chorus\", doesn't", "&7mean that you can eat it."), 7, 23)
-				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.CHORUS_FRUIT, 4))
+				.addMachineRecipe((RecipeDisplayItem) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.CHORUS_FRUIT, 4))
 				.registerChain(plugin);
 		
 		// Overworld resources
 		END_STONE_COAL_ORE = new EndrexResourceItem(plugin, new SlimefunItemStack("END_STONE_COAL_ORE", EndrexSkulls.COAL_ORE, "&fCoal Ore with End Stone", "", "&7Why such thing like this", "&7do exists?"), 9, 27)
-				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.COAL, 3))
+				.addMachineRecipe((RecipeDisplayItem) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.COAL, 3))
 				.registerChain(plugin);
 		END_STONE_IRON_ORE = new EndrexResourceItem(plugin, new SlimefunItemStack("END_STONE_IRON_ORE", EndrexSkulls.IRON_ORE, "&fIron Ore with End Stone", "", "&7Why such thing like this", "&7do exists?"), 8, 25)
-				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new CustomItem(SlimefunItems.IRON_DUST, 3))
+				.addMachineRecipe((RecipeDisplayItem) RecipeType.ORE_CRUSHER.getMachine(), new CustomItem(SlimefunItems.IRON_DUST, 3))
 				.registerChain(plugin);
 		END_STONE_LAPIS_ORE = new EndrexResourceItem(plugin, new SlimefunItemStack("END_STONE_LAPIS_ORE", EndrexSkulls.LAPIS_ORE, "&fLapis Ore with End Stone", "", "&7Why such thing like this", "&7do exists?"), 5, 12)
-				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.LAPIS_LAZULI, 14))
+				.addMachineRecipe((RecipeDisplayItem) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.LAPIS_LAZULI, 14))
 				.registerChain(plugin);
 		END_STONE_REDSTONE_ORE = new EndrexResourceItem(plugin, new SlimefunItemStack("END_STONE_REDSTONE_ORE", EndrexSkulls.REDSTONE_ORE, "&fRedstone Ore with End Stone", "", "&7Why such thing like this", "&7do exists?"), 5, 12)
-				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.REDSTONE, 8))
+				.addMachineRecipe((RecipeDisplayItem) RecipeType.ORE_CRUSHER.getMachine(), new ItemStack(Material.REDSTONE, 8))
 				.registerChain(plugin);
 		END_STONE_GOLD_ORE = new EndrexResourceItem(plugin, new SlimefunItemStack("END_STONE_GOLD_ORE", EndrexSkulls.GOLD_ORE, "&fGold Ore with End Stone", "", "&7Why such thing like this", "&7do exists?"), 0, 5)
-				.addMachineRecipe((SlimefunMachine) RecipeType.ORE_CRUSHER.getMachine(), new CustomItem(SlimefunItems.GOLD_DUST, 2))
+				.addMachineRecipe((RecipeDisplayItem) RecipeType.ORE_CRUSHER.getMachine(), new CustomItem(SlimefunItems.GOLD_DUST, 2))
 				.registerChain(plugin);
 		
 		RESONANT_ENDER_BUCKET = new LiquidBucket(CATEGORY_RESOURCES, new SlimefunItemStack("RESONANT_ENDER_BUCKET", EndrexSkulls.RESONANT_ENDER_BUCKET, "&bBucket of Resonant Ender", "", "&7No you can't pour liquid", "&fyet :(")).registerChain(plugin);
@@ -344,13 +344,13 @@ public class EndrexItems {
 	}
 	private static void initEquipments(Endrex plugin) {
 		ELYTRA_OF_THE_LITTLE_DRAGON = new EndrexEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, (SlimefunItemStack) new ItemStackWrapper(new SlimefunItemStack("ELYTRA_OF_THE_LITTLE_DRAGON", Material.ELYTRA, "&eElytra of The Little Dragon", "", "&7It's hard to name items...")).addEnchant(Enchantment.DURABILITY, 2).getItem(), RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-				SlimefunItems.RUNE_AIR, SlimefunItems.ELYTRA_SCALE, SlimefunItems.RUNE_AIR,
-				SlimefunItems.RUNE_AIR, new ItemStack(Material.LEATHER_CHESTPLATE), SlimefunItems.RUNE_AIR,
+				SlimefunItems.AIR_RUNE, SlimefunItems.ELYTRA_SCALE, SlimefunItems.AIR_RUNE,
+				SlimefunItems.AIR_RUNE, new ItemStack(Material.LEATHER_CHESTPLATE), SlimefunItems.AIR_RUNE,
 				DRAGON_SCALE.getItem(), SlimefunItems.ELYTRA_SCALE, DRAGON_SCALE.getItem()
 		}).registerChain(plugin);
 		REINFORCED_ELYTRA = new EndrexEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, (SlimefunItemStack) new ItemStackWrapper(new SlimefunItemStack("REINFORCED_ELYTRA", Material.ELYTRA, "&eReinforced Elytra")).addEnchant(Enchantment.DURABILITY, 5).getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
 				null, SlimefunItems.ELYTRA_SCALE, null,
-				REINFORCED_DRAGON_SCALE.getItem(), SlimefunItems.ELYTRA, REINFORCED_DRAGON_SCALE.getItem(),
+				REINFORCED_DRAGON_SCALE.getItem(), new ItemStack(Material.ELYTRA), REINFORCED_DRAGON_SCALE.getItem(),
 				SlimefunItems.REINFORCED_PLATE, SlimefunItems.ELYTRA_SCALE, SlimefunItems.REINFORCED_PLATE
 		}).registerChain(plugin);
 		MASK_OF_ENDER = new EndrexEquipment(CATEGORY_WEAPONS_AND_EQUIPMENTS, new SlimefunItemStack("MASK_OF_ENDER", Material.LEATHER_HELMET, Color.AQUA, "&bMask of Ender", "", "&7It must be something", "&7special..."), RecipeType.ARMOR_FORGE, new ItemStack[] {
@@ -361,9 +361,9 @@ public class EndrexItems {
 	}
 	private static void initInterestingThings(Endrex plugin) {
 		END_RESPAWN_ANCHOR = new EndRespawnAnchor(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("END_RESPAWN_ANCHOR", EndrexSkulls.RESPAWN_ANCHOR, "&eEnd Respawn Anchor", "", "&7Allow you to respawn in", "&7The End.", "&7Must provide it with", "&7Enderium blocks to make", "&7it works"), RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-				SlimefunItems.ENDER_LUMP_3, new ItemStack(Material.END_STONE), SlimefunItems.RUNE_ENDER,
+				SlimefunItems.ENDER_LUMP_3, new ItemStack(Material.END_STONE), SlimefunItems.ENDER_RUNE,
 				new ItemStack(Material.END_STONE), new ItemStack(Material.ENCHANTING_TABLE), new ItemStack(Material.END_STONE),
-				SlimefunItems.RUNE_ENDER, new ItemStack(Material.END_STONE), SlimefunItems.ENDER_LUMP_3
+				SlimefunItems.ENDER_RUNE, new ItemStack(Material.END_STONE), SlimefunItems.ENDER_LUMP_3
 		}).registerChain(plugin);
 		MYSTERIOUS_TELEPORTER = new MysteriousTeleporter(CATEGORY_MISCELLANEOUS, new SlimefunItemStack("MYSTERIOUS_TELEPORTER", EndrexSkulls.MYSTERIOUS_TELEPORTER, "&dMysterious Teleporter", "", "&7Where could you teleport to?", "&7Cost 1 Mystherium per", "&7teleportation."), RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
 				MYSTHERIUM.getItem(), new ItemStack(Material.CHORUS_FLOWER), MYSTHERIUM.getItem(),

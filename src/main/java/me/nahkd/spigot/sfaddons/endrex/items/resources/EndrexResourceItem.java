@@ -4,8 +4,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunMachine;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
@@ -14,7 +14,7 @@ public class EndrexResourceItem extends EndrexItem {
 	
 	private final SlimefunItemStack item;
 	private boolean applyRecipe;
-	private SlimefunMachine machine;
+	private RecipeDisplayItem machine;
 	private ItemStack recipeOutput;
 	
 	public EndrexResourceItem(JavaPlugin plugin, SlimefunItemStack item, int randomMin, int randomMax) {
@@ -24,11 +24,11 @@ public class EndrexResourceItem extends EndrexItem {
 		machine = null;
 		recipeOutput = null;
 		
-		new EndrexResource(new NamespacedKey(plugin, item.getItemID()), this, randomMin, randomMax - randomMin).register();
+		new EndrexResource(new NamespacedKey(plugin, item.getItemId()), this, randomMin, randomMax - randomMin).register();
 	}
 	
 	// public String getName() {return item.getItemID();}
-	public EndrexResourceItem addMachineRecipe(SlimefunMachine machine, ItemStack output) {
+	public EndrexResourceItem addMachineRecipe(RecipeDisplayItem machine, ItemStack output) {
 		this.machine = machine;
 		this.recipeOutput = output;
 		this.applyRecipe = true;
@@ -38,7 +38,8 @@ public class EndrexResourceItem extends EndrexItem {
 	@Override
 	public void postRegister() {
 		if (applyRecipe) {
-			machine.addRecipe(new ItemStack[] {item}, recipeOutput);
+			machine.getDisplayRecipes().add(recipeOutput);
+			//addRecipe(new ItemStack[] {item}, recipeOutput);
 		}
 		super.postRegister();
 	}

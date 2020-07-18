@@ -16,6 +16,9 @@ website: https://github.com/nahkd123/Endrex
 ## This is required and marks Slimefun as a plugin dependency.
 depend:
 - "Slimefun"                 # This is required as usual
+
+## This is all the plugins to load before Endrex
+softdepends:
 - "BentoBox"                 # Load after the BentoBox plugin is loaded. Why? Because sometimes Endrex load before
                              # BentoBox, which cause NPE
 
