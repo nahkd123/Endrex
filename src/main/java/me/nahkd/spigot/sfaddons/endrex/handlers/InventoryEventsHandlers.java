@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.mrCookieSlime.Slimefun.SlimefunPlugin;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.nahkd.spigot.sfaddons.endrex.items.mysterious.MysteriousEquipment;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 

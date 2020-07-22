@@ -11,7 +11,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 
-import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
@@ -42,8 +42,8 @@ public class MysteryBoxesGenerator extends StructuresGenerator {
 				new LootTableEntry(0.03, new ItemStack(Material.DIAMOND, 2)),
 				new LootTableEntry(0.01, EndrexItems.ENDERIUM_SWORD.getItem()),
 				new LootTableEntry(0.02, EndrexItems.MASK_OF_ENDER.getItem()),
-				new LootTableEntry(0.02, SlimefunItems.RUNE_AIR),
-				new LootTableEntry(0.03, SlimefunItems.RUNE_ENDER),
+				new LootTableEntry(0.02, SlimefunItems.AIR_RUNE),
+				new LootTableEntry(0.03, SlimefunItems.ENDER_RUNE),
 				new LootTableEntry(0.02, SlimefunItems.GOLD_16K),
 				new LootTableEntry(0.01, SlimefunItems.BLANK_RUNE)
 				);

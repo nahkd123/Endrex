@@ -12,7 +12,7 @@ import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 
 public class EndrexResourceItem extends EndrexItem {
 	
-	private final SlimefunItemStack item;
+	// private final SlimefunItemStack item;
 	private boolean applyRecipe;
 	private RecipeDisplayItem machine;
 	private ItemStack recipeOutput;
