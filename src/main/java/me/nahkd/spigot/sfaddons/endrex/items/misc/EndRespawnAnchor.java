@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -34,9 +35,11 @@ public class EndRespawnAnchor extends EndrexItem {
 	public EndRespawnAnchor(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, recipeType, recipe);
 		
-		addItemHandler((BlockPlaceHandler) (player, event, is) -> {
-			BlockStorage.addBlockInfo(event.getBlock(), "stage", "0");
-			return true;
+		addItemHandler(new BlockPlaceHandler(true) {
+			@Override
+			public void onPlayerPlace(BlockPlaceEvent event) {
+				BlockStorage.addBlockInfo(event.getBlock(), "stage", "0");
+			}
 		}, (BlockUseHandler) (event) -> {
 			if (event.getClickedBlock().isPresent()) {
 				Block b = event.getClickedBlock().get();
