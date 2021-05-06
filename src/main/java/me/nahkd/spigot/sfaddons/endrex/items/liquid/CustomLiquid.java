@@ -18,6 +18,13 @@ public class CustomLiquid {
 	public static CustomLiquid getLiquidByKey(NamespacedKey key) {
 		return inited.get(key.toString());
 	}
+	
+	/**
+	 * Get custom liquid type by string
+	 * @deprecated Should be used internally by Endrex
+	 * @param key
+	 * @return
+	 */
 	@Deprecated
 	public static CustomLiquid getLiquidByKey(String key) {
 		return inited.get(key);

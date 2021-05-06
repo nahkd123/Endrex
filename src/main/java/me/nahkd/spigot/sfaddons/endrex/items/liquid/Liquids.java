@@ -17,7 +17,6 @@ public class Liquids {
 	public static CustomLiquid MYSTHERIUM;
 	
 	public static void init(Endrex plugin) {
-		// TODO add texture for water and lava
 		WATER = new CustomLiquid(new NamespacedKey(plugin, "water"), new CustomItem(Material.WATER_BUCKET, "&fWater"));
 		LAVA = new CustomLiquid(new NamespacedKey(plugin, "lava"), new CustomItem(Material.LAVA_BUCKET, "&fLava"));
 		RESONANT_ENDER = new CustomLiquid(new NamespacedKey(plugin, "resonant_ender"), new CustomItem(EndrexSkulls.RESONANT_ENDER, "&3Resonant Ender"));

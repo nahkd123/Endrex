@@ -37,7 +37,6 @@ public class PlayerEventsHandlers implements Listener {
 	@EventHandler
 	public void respawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		// World world = player.getLocation().getWorld();
 		if (!player.getPersistentDataContainer().has(LAST_DEATH_WORLD, PersistentDataType.STRING)) return;
 		World world = plugin.getServer().getWorld(player.getPersistentDataContainer().get(LAST_DEATH_WORLD, PersistentDataType.STRING));
 		if (world == null) return;
@@ -60,7 +59,7 @@ public class PlayerEventsHandlers implements Listener {
 				event.setRespawnLocation(new Location(world, x, y, z));
 				return;
 			} else {
-				player.sendMessage("§7It seem like someone broke your respawn anchor...");
+				player.sendMessage("§7It seems like someone broke your respawn anchor...");
 				player.getPersistentDataContainer().remove(key);
 				return;
 			}

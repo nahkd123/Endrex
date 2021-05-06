@@ -29,7 +29,6 @@ public class EndrexResource implements GEOResource {
 		switch (environment) {
 		case THE_END: return randomMin;
 		default: return 0;
-		// If there's additional enviroment related to The End, we'll add it in here...
 		}
 	}
 
