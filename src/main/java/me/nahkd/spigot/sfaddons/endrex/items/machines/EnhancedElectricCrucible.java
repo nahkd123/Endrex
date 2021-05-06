@@ -8,11 +8,13 @@ import java.util.Map.Entry;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
@@ -60,24 +62,30 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		this.liquidCapacity = liquidCapacity;
 		
 		createPreset(this, "&8Enhanced Electric Crucible", this::menuPreset);
-		registerBlockHandler(getId(), (player, block, tool, reason) -> {
-			BlockMenu inv = BlockStorage.getInventory(block);
-			if (inv != null) {
-				InventoryUtils.dropItem(this, block);
-				
-				processing.remove(block);
-				processMbLeft.remove(block);
-			}
-			return true;
-		});
+		addHandlerChain(new BlockBreakHandler(false, true) {
+            @Override
+            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+                Block block = e.getBlock();
+                BlockMenu inv = BlockStorage.getInventory(block);
+                if (inv != null) {
+                    InventoryUtils.dropItem(EnhancedElectricCrucible.this, block);
+                    drops.clear();
+                    
+                    processing.remove(block);
+                    processMbLeft.remove(block);
+                }
+            }
+        });
 	}
 	
 	public static void addRecipe(ItemStack input, CustomLiquid type, int output) {
 		inputs_liquidTypes.put(input, type);
 		inputs_liquidAmount.put(input, output);
+		
+		String friendlyName = InventoryUtils.getFriendlyName(input);
 		recipesDisplay.add(new CustomItem(
 				input,
-				"&f" + InventoryUtils.getFriendlyName(input),
+				friendlyName != null? "&f" + friendlyName : null,
 				"&8\u21E8 &7Produce &f" + InventoryUtils.getFriendlyName(type.defaultDisplay),
 				"&8\u21E8 &e" + output + " &7MB/item"
 				));
@@ -115,21 +123,30 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		// If the input is a bucket, we'll take it instantly
 		ItemStack input = inv.getItemInSlot(getInputSlots()[0]);
 		ItemStack output = inv.getItemInSlot(getOutputSlots()[0]);
-		if (input != null && VANILLA_BUCKET.isSimilar(input) && mb >= 1000 && (output == null || output.getType() == Material.AIR || SlimefunUtils.isItemSimilar(output, liquid.bucket, true))) {
+		
+		if (
+		    input != null &&
+		    VANILLA_BUCKET.isSimilar(input) &&
+		    mb >= 1000 &&
+		    (output == null || output.getType() == Material.AIR || SlimefunUtils.isItemSimilar(output, liquid.bucket, true))
+		    ) {
+		    
 			// Empty bucket, "pour" to it
 			inv.consumeItem(getInputSlots()[0]);
 			mb -= 1000;
-			inv.pushItem(liquid.bucket, getOutputSlots());
+
+			inv.pushItem(new ItemStack(liquid.bucket), getOutputSlots());
 		} else {
 			// Check if the bucket is vaild
 			// The ItemStack do override hashCode, but only works with same item amount
 			for (CustomLiquid otherLiquid : CustomLiquid.getAllLiquids()) if (
-					otherLiquid.hasBucket() &&
-					SlimefunUtils.isItemSimilar(input, otherLiquid.bucket, true) &&
-					(liquid == null || mb <= 0 || liquid.equals(otherLiquid)) &&
-					mb + 1000 <= liquidCapacity &&
-					(output == null || output.getType() == Material.AIR || SlimefunUtils.isItemSimilar(output, VANILLA_BUCKET, true))
-					) {
+    			otherLiquid.hasBucket() &&
+    			SlimefunUtils.isItemSimilar(input, otherLiquid.bucket, true) &&
+    			(liquid == null || mb <= 0 || liquid.equals(otherLiquid)) &&
+    			mb + 1000 <= liquidCapacity &&
+    			(output == null || output.getType() == Material.AIR || SlimefunUtils.isItemSimilar(output, VANILLA_BUCKET, true))
+    			) {
+			    
 				mb += 1000;
 				if (liquid == null) liquid = otherLiquid;
 				inv.consumeItem(getInputSlots()[0]);

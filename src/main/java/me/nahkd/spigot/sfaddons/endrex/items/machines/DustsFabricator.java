@@ -1,12 +1,16 @@
 package me.nahkd.spigot.sfaddons.endrex.items.machines;
 
 import java.util.HashMap;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
@@ -46,17 +50,21 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 		this.liquidCapacity = liquidCapacity;
 		
 		createPreset(this, "&8Dusts Fabricator", this::menuPreset);
-		registerBlockHandler(getId(), (player, block, tool, reason) -> {
-			BlockMenu inv = BlockStorage.getInventory(block);
-			if (inv != null) {
-				// Drop items in inventory
-				InventoryUtils.dropItem(this, block);
-				
-				processing.remove(block);
-				processMbLeft.remove(block);
-			}
-			return true;
-		});
+		addItemHandler(new BlockBreakHandler(false, true) {
+            @Override
+            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+                Block block = e.getBlock();
+                BlockMenu inv = BlockStorage.getInventory(block);
+                if (inv != null) {
+                    // Drop items in inventory
+                    InventoryUtils.dropItem(DustsFabricator.this, block);
+                    drops.clear();
+                    
+                    processing.remove(block);
+                    processMbLeft.remove(block);
+                }
+            }
+        });
 	}
 	
 	public static void addRecipe(CustomLiquid type, int mbPerItem, ItemStack output) {
@@ -128,7 +136,7 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 				int processingLeft = processMbLeft.get(b);
 				processingLeft -= mbPerTick;
 				if (processingLeft <= 0) {
-					ItemStack outputItem = inputs_output.get(processingLiquid);
+					ItemStack outputItem = new ItemStack(inputs_output.get(processingLiquid));
 					inv.pushItem(outputItem, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44);
 					processing.remove(b);
 					processMbLeft.remove(b);

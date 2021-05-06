@@ -82,8 +82,8 @@ public class InventoryUtils {
 		if (item.hasItemMeta()) {
 			ItemMeta meta = item.getItemMeta();
 			if (meta.hasDisplayName()) return meta.getDisplayName();
-			else return "";
-		} else return "";
+			else return null;
+		} else return null;
 	}
 	
 }
