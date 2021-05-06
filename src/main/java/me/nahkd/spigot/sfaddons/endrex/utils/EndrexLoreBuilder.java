@@ -9,7 +9,6 @@ public class EndrexLoreBuilder {
 	
 	private static final String liquidCapacitySymbol = "\u2045 \u2046";
 	
-	// Is this where you said "one-liner method"?
 	/**
 	 * Display current liquid capacity
 	 * @param capacity
@@ -26,8 +25,7 @@ public class EndrexLoreBuilder {
 	
 	/**
 	 * The "click to unlock" thing, applies to mysterious items
-	 * @return
 	 */
-	public static String clickToUnlock() {return "&7Click to unlock";}
+	public static final String CLICK_TO_UNLOCK = "&7Click to unlock";
 	
 }

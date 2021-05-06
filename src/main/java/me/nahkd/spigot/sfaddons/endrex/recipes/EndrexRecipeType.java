@@ -10,7 +10,7 @@ import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 
 /**
- * Some sort of "enum". You should access to this class after Endrex is enabled.
+ * Some sort of "enum". You can access to this class after Endrex is enabled.
  * @author nahkd123
  *
  */

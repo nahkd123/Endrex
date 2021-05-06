@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.nahkd.spigot.sfaddons.endrex.items.mysterious.MysteriousEquipment;
+import me.nahkd.spigot.sfaddons.endrex.utils.EndrexLoreBuilder;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
 public class InventoryEventsHandlers implements Listener {
@@ -28,7 +29,7 @@ public class InventoryEventsHandlers implements Listener {
 		Optional<String> id = SlimefunPlugin.getItemDataService().getItemData(meta);
 		if (id.isPresent() && MysteriousEquipment.getMappedItems().containsKey(id.get())) {
 			MysteriousEquipment equipment = MysteriousEquipment.getMappedItems().get(id.get());
-			if (meta.getLore().get(0).equals("§7Click to unlock")) {
+			if (meta.getLore().get(0).equals(EndrexLoreBuilder.CLICK_TO_UNLOCK)) {
 				// Add crap to the item
 				List<String> lore = meta.getLore();
 				lore.set(0, "§7§oMagically created");

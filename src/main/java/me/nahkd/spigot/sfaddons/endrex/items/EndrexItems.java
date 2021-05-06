@@ -268,7 +268,7 @@ public class EndrexItems {
 				"MYSTERIOUS_SWORD",
 				Material.IRON_SWORD,
 				"&dMysterious Sword",
-				EndrexLoreBuilder.clickToUnlock(),
+				EndrexLoreBuilder.CLICK_TO_UNLOCK,
 				"",
 				"&fGet a random enchantments",
 				"&feverytime you craft it."
@@ -294,7 +294,7 @@ public class EndrexItems {
 				"MYSTERIOUS_PICKAXE",
 				Material.IRON_PICKAXE,
 				"&dMysterious Pickaxe",
-				EndrexLoreBuilder.clickToUnlock(),
+				EndrexLoreBuilder.CLICK_TO_UNLOCK,
 				"",
 				"&fGet a random enchantments",
 				"&feverytime you craft it."
@@ -320,7 +320,7 @@ public class EndrexItems {
 				"MYSTERIOUS_AXE",
 				Material.IRON_AXE,
 				"&dMysterious Axe",
-				EndrexLoreBuilder.clickToUnlock(),
+				EndrexLoreBuilder.CLICK_TO_UNLOCK,
 				"",
 				"&fGet a random enchantments",
 				"&feverytime you craft it."

@@ -36,36 +36,29 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 		return loadedSchemas.get(path);
 	}
 	
-	private static File cacheFolder;
-	public static File getCacheFolder() {return cacheFolder;}
-	
     @Override
     public void onEnable() {
         long timer = System.currentTimeMillis();
         instance = this;
     	
-    	// hmm...
-    	saveResource("config.yml", false);
-    	reloadConfig();
+    	if (!new File(getDataFolder(), "config.yml").exists()) {
+    	    saveResource("config.yml", false);
+            reloadConfig();
+    	}
     	
         CommandSender logger = getServer().getConsoleSender();
         runtimeRandomizer = new Random();
         
         // Folders and stuffs
         if (!getDataFolder().exists()) getDataFolder().mkdir();
-        cacheFolder = new File(getDataFolder(), "cache");
-        if (!cacheFolder.exists()) cacheFolder.mkdir();
 
         SchematicExtension.initDefault(this);
         loadedSchemas = new HashMap<String, Schematic>();
         logger.sendMessage("§3[Endrex] §bLoading schematics...");
-        loadSchematic("structures/village0/house0.nsm");
-        loadSchematic("structures/village0/central.nsm");
         loadSchematic("structures/magictree/0.nsm");
         loadSchematic("structures/magictree/1.nsm");
         loadSchematic("structures/magictree/2.nsm");
         loadSchematic("structures/magictree/3.nsm");
-        loadSchematic("structures/other/SpongePowered.nsm");
         loadSchematic("structures/other/mysterybox.nsm");
         
         // Config
@@ -76,7 +69,6 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         EndrexRecipeType.init(this);
         Liquids.init(this);
         EndrexItems.init(this);
-        
         EndRespawnAnchor.init(this);
         MysteriousTeleporter.init(this);
         
@@ -87,7 +79,6 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
         getServer().getPluginManager().registerEvents(new EntityEventsHandlers(), this);
         getServer().getPluginManager().registerEvents(new PlayerEventsHandlers(this), this);
         getServer().getPluginManager().registerEvents(new InventoryEventsHandlers(), this);
-        // getServer().getPluginManager().registerEvents(new UnusedClass(), this);
         
         logger.sendMessage("§3[Endrex] §bPlugin enabled in " + (System.currentTimeMillis() - timer) + "ms");
     }
@@ -108,7 +99,8 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
     public String getBugTrackerURL() {return "https://github.com/nahkd123/Endrex/issues";}
     @Override
     public JavaPlugin getJavaPlugin() {return this;}
-    public Schematic loadSchematicFromResource(String path) {
+    
+    private Schematic loadSchematicFromResource(String path) {
     	try {
 			return new Schematic().fromStream(getResource(path));
 		} catch (IOException e) {
@@ -116,7 +108,7 @@ public class Endrex extends JavaPlugin implements SlimefunAddon {
 			return new Schematic();
 		}
     }
-    public void loadSchematic(String path) {
+    private void loadSchematic(String path) {
     	System.out.println("Loading " + path + " from jar file...");
     	loadedSchemas.put(path, loadSchematicFromResource(path));
     }

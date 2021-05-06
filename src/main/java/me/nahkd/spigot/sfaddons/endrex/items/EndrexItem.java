@@ -31,14 +31,8 @@ public class EndrexItem extends SlimefunItem {
 		return this;
 	}
 	public EndrexItem itemUseHandler(ItemUseHandler handler) {return addHandlerChain(handler);}
-	public EndrexItem onPostRegister(Runnable runnable) {
-		this.onPostReg = runnable;
-		return this;
-	}
 	
 	@Override
-	public void postRegister() {
-		if (this.onPostReg != null) this.onPostReg.run();
-	}
+	public void postRegister() {if (this.onPostReg != null) this.onPostReg.run();}
 	
 }
