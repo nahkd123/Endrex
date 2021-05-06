@@ -13,7 +13,7 @@ import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.BinaryUtils;
  * The important part to generate structures with Slimefun blocks. In Endrex, some structures
  * contains custom Slimefun block data (try to open one of those .nsm file using xxd). Those
  * datas are stored in the last section of the schematic file. It's suppose to use binary data
- * instead, but the binary data isn't available yet, and I still have to use UTF-8 string.
+ * instead, but the binary data isn't available yet, so I still have to use UTF-8 string.
  * It's better to let TheBusyBiscuit improve this, rather than me.
  * @author nahkd123
  *

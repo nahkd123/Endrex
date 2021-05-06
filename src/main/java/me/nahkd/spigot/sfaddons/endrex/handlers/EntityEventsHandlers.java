@@ -20,7 +20,6 @@ public class EntityEventsHandlers implements Listener {
 	@EventHandler
 	public void enderDragonDed(EntityDeathEvent event) {
 		if (event.getEntityType() == EntityType.ENDER_DRAGON) {
-			// Drop 16 scales around 0:0
 			for (int i = 0; i < 16; i++) {
 				Location location = new Location(event.getEntity().getWorld(), -20 + (Math.random() * 40), 75, -20 + (Math.random() * 40));
 				event.getEntity().getWorld().dropItem(location, EndrexItems.DRAGON_SCALE.getItem());

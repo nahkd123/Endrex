@@ -165,12 +165,12 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 		} else {
 			String name = liquid.defaultDisplay.hasItemMeta() && liquid.defaultDisplay.getItemMeta().hasDisplayName()? liquid.defaultDisplay.getItemMeta().getDisplayName() : "&cI forgot to add the name for this liquid :|";
 			inv.replaceExistingItem(13, new CustomItem(
-					liquid.defaultDisplay,
-							name,
-							"",
-							"&7Capacity: &e" + mb + "&7/" + liquidCapacity + " MB",
-							"&7Processing: &e" + mbLeft + " &7MB"
-					));
+			    liquid.defaultDisplay,
+				name,
+				"",
+				"&7Capacity: &e" + mb + "&7/" + liquidCapacity + " MB",
+				"&7Processing: &e" + mbLeft + " &7MB"
+			));
 		}
 	}
 
@@ -178,11 +178,13 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
 	private static final int[] BGINFOSLOTS = {3, 4, 5, 12, 14, 21, 22, 23};
 	private static final int[] BGOUTPUTSLOTS = {6, 7, 8, 15, 17, 24, 25, 26};
 	private static final int[] BGOUTPUTSLOTS_DUSTS = {45, 46, 47, 48, 49, 50, 51, 52, 53};
+	
 	private static final CustomItem GUI_INPUT = new CustomItem(Material.LIME_STAINED_GLASS_PANE, "&aBucket Input");
 	private static final CustomItem GUI_OUTPUT = new CustomItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, "&bBucket Output");
 	private static final CustomItem GUI_OUTPUT_DUSTS = new CustomItem(Material.BLUE_STAINED_GLASS_PANE, "&bDusts Output");
 	private static final CustomItem GUI_WAIT = new CustomItem(Material.YELLOW_STAINED_GLASS_PANE, "&ePlease wait", "&7Maybe about 0.25s");
 	private static final CustomItem GUI_NOLIQUID = new CustomItem(Material.BARRIER, "&cNo Liquid", "&7Put a bucket of liquid", "&7in the input slot and take", "&7it from the bucket output", "&7slot.");
+	
 	private void menuPreset(BlockMenuPreset preset) {
 		for (int s : BGINPUTSLOTS) preset.addItem(s, GUI_INPUT, ChestMenuUtils.getEmptyClickHandler());
 		for (int s : BGINFOSLOTS) preset.addItem(s, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
