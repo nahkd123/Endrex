@@ -74,12 +74,8 @@ public class EndRespawnAnchor extends EndrexItem {
 	
 	
 	public void setTextureByStage(int stage, Block block) {
-		if (stage == 0) EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_0);
-		if (stage == 1) EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_1);
-		if (stage == 2) EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_2);
-		if (stage == 3) EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_3);
-		if (stage == 4) EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_4);
-		// lol i wish i can use switch case with integer value
+	    if (stage < 0 || stage > 4) throw new IllegalArgumentException("invaild texture stage (" + stage + ")");
+		EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_STATES[stage]);
 	}
 	
 	private static HashMap<World, NamespacedKey> worlds;

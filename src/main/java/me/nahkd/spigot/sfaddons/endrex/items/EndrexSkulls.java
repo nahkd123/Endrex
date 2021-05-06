@@ -29,6 +29,7 @@ public class EndrexSkulls {
 	public static String	 RESPAWN_ANCHOR_2;
 	public static String	 RESPAWN_ANCHOR_3;
 	public static String	 RESPAWN_ANCHOR_4;
+	public static String[]   RESPAWN_ANCHOR_STATES;
 	public static ItemStack	 RESPAWN_ANCHOR;
 	public static String	 MYSTERIOUS_TELEPORTER_HASH;
 	public static ItemStack	 MYSTERIOUS_TELEPORTER;
@@ -57,6 +58,7 @@ public class EndrexSkulls {
 		RESPAWN_ANCHOR_2 = 											"c7eccb0a46846aba5d1796443cba3ed21b9df929893ff9463af531e06497b8e6";
 		RESPAWN_ANCHOR_3 = 											"c24df1fd833341d70e7682ef0720660f49fb5434bebb7e545b6fb20cf491f77f";
 		RESPAWN_ANCHOR_4 = 											"23fa472be70d01559589844c63dd182002f570acec479d1437daf34cd164644d";
+		RESPAWN_ANCHOR_STATES =                 new String[] { RESPAWN_ANCHOR_0, RESPAWN_ANCHOR_1, RESPAWN_ANCHOR_2, RESPAWN_ANCHOR_3, RESPAWN_ANCHOR_4 };
 		RESPAWN_ANCHOR = 						SkullItem.fromHash(	RESPAWN_ANCHOR_0);
 		MYSTERIOUS_TELEPORTER_HASH = 								"12193093329b20c401b62e01f4d8ac711567e824f2d92d4f281370a6fa08f55c";
 		MYSTERIOUS_TELEPORTER = 				SkullItem.fromHash(	MYSTERIOUS_TELEPORTER_HASH);
