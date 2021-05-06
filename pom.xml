@@ -77,7 +77,7 @@
   		<!-- Eclipse Compiler. Disable it if you want. It just build faster -->
   		<plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.8.0</version>
         <configuration>
           <target>11</target>
           <compilerId>eclipse</compilerId>
