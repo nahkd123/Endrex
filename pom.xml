@@ -78,6 +78,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
+          <target>1.11</target>
           <release>11</release>
           <compilerId>eclipse</compilerId>
         </configuration>
