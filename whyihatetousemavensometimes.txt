@@ -1,5 +1,0 @@
-So umm, Maven keep copying resource as UTF-8, which is why it's not good at all.
-I'm trying to include a binary resource, but then it keep converting to UTF-8,
-which is annoying.
-
-I wish I could go back to Eclipse Project thing...
