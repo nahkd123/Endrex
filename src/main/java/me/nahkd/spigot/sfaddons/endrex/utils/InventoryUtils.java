@@ -17,6 +17,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
  * @author nahkd123
  *
  */
+@SuppressWarnings("deprecation")
 public class InventoryUtils {
 	
 	/**

@@ -24,7 +24,7 @@ public class MysteriousEquipment extends EndrexEquipment {
 	public MysteriousEquipment(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, recipeType, recipe);
 		
-		mappedItems.put(getID(), this);
+		mappedItems.put(getId(), this);
 		enchs = new HashMap<Enchantment, List<RandomEnchantmentEntry>>();
 	}
 	

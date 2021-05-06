@@ -39,7 +39,7 @@ public class EndrexResource implements GEOResource {
 	@Override
 	public String getName() {
 		ItemStack is = item.getItem();
-		return is.hasItemMeta() && is.getItemMeta().hasDisplayName()? is.getItemMeta().getDisplayName() : item.getID();
+		return is.hasItemMeta() && is.getItemMeta().hasDisplayName()? is.getItemMeta().getDisplayName() : item.getId();
 	}
 
 	@Override

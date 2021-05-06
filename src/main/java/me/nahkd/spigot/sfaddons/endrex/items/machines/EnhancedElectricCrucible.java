@@ -24,7 +24,6 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.api.energy.ChargableBlock;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
@@ -36,15 +35,16 @@ import me.nahkd.spigot.sfaddons.endrex.items.liquid.LiquidStorage;
 import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
+/*
+ * We'll have to wait so we can replace InventoryBlock with other interface
+ */
 @SuppressWarnings("deprecation")
 public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetComponent, InventoryBlock, RecipeDisplayItem {
 	
 	// Since ItemStack do overrides hashCode(), we can use HashMap
 	// Since 1.15 i guess
 	private static HashMap<ItemStack, CustomLiquid> inputs_liquidTypes = new HashMap<ItemStack, CustomLiquid>();
-	private static HashMap<ItemStack, Integer> inputs_liquidAmount = new HashMap<ItemStack, Integer>();    
-	// Should we create another class to store "recipe" info?
-	// Note that object creation uses at least 16 bytes
+	private static HashMap<ItemStack, Integer> inputs_liquidAmount = new HashMap<ItemStack, Integer>();
 	private static HashMap<Block, CustomLiquid> processing = new HashMap<Block, CustomLiquid>();
 	private static HashMap<Block, Integer> processMbLeft = new HashMap<Block, Integer>();
 	private static ArrayList<ItemStack> recipesDisplay = new ArrayList<ItemStack>();
@@ -60,7 +60,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		this.liquidCapacity = liquidCapacity;
 		
 		createPreset(this, "&8Enhanced Electric Crucible", this::menuPreset);
-		registerBlockHandler(id, (player, block, tool, reason) -> {
+		registerBlockHandler(getId(), (player, block, tool, reason) -> {
 			BlockMenu inv = BlockStorage.getInventory(block);
 			if (inv != null) {
 				InventoryUtils.dropItem(this, block);
@@ -97,7 +97,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 			}
 			
 			@Override
-			public boolean isSynchronized() {return false;}
+			public boolean isSynchronized() {return true;}
 		});
 	}
 	
@@ -140,7 +140,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		// Processing liquids
 		int mbLeft = 0;
 		if (processing.containsKey(b)) {
-			if (ChargableBlock.getCharge(b) >= jPerTick && mb < liquidCapacity) {
+			if (getCharge(b.getLocation()) >= jPerTick && mb < liquidCapacity) {
 				mbLeft = processMbLeft.get(b);
 				int mbTick;
 				if (mbPerTick > mbLeft) mbTick = mbLeft;
@@ -153,10 +153,9 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 					processing.remove(b);
 					processMbLeft.remove(b);
 				} else processMbLeft.put(b, mbLeft);
-				
-				ChargableBlock.addCharge(b, -jPerTick);
+				removeCharge(b.getLocation(), jPerTick);
 			}
-		} else if (input != null && input.getType() != Material.AIR && ChargableBlock.getCharge(b) >= jPerTick && mb < liquidCapacity) {
+		} else if (input != null && input.getType() != Material.AIR && getCharge(b.getLocation()) >= jPerTick && mb < liquidCapacity) {
 			// Get "recipe" and add it to map for processing
 			for (Entry<ItemStack, CustomLiquid> entry : inputs_liquidTypes.entrySet()) {
 				//  && inputs_liquidTypes.containsKey(input)
