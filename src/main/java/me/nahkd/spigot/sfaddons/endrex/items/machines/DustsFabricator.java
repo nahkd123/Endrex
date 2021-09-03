@@ -9,22 +9,22 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.CustomLiquid;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.LiquidStorage;
@@ -43,7 +43,7 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
     private final int jPerTick;
     private final int liquidCapacity;
     
-    public DustsFabricator(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int mbPerTick, int jPerTick, int liquidCapacity) {
+    public DustsFabricator(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int mbPerTick, int jPerTick, int liquidCapacity) {
         super(category, item, recipeType, recipe);
         this.mbPerTick = mbPerTick;
         this.jPerTick = jPerTick;
@@ -164,7 +164,7 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
             if (!GUI_NOLIQUID.isSimilar(inv.getItemInSlot(13))) inv.replaceExistingItem(13, GUI_NOLIQUID);
         } else {
             String name = liquid.defaultDisplay.hasItemMeta() && liquid.defaultDisplay.getItemMeta().hasDisplayName()? liquid.defaultDisplay.getItemMeta().getDisplayName() : "&cI forgot to add the name for this liquid :|";
-            inv.replaceExistingItem(13, new CustomItem(
+            inv.replaceExistingItem(13, new CustomItemStack(
                 liquid.defaultDisplay,
                 name,
                 "",
@@ -179,11 +179,11 @@ public class DustsFabricator extends EndrexItem implements EnergyNetComponent, I
     private static final int[] BGOUTPUTSLOTS = {6, 7, 8, 15, 17, 24, 25, 26};
     private static final int[] BGOUTPUTSLOTS_DUSTS = {45, 46, 47, 48, 49, 50, 51, 52, 53};
     
-    private static final CustomItem GUI_INPUT = new CustomItem(Material.LIME_STAINED_GLASS_PANE, "&aBucket Input");
-    private static final CustomItem GUI_OUTPUT = new CustomItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, "&bBucket Output");
-    private static final CustomItem GUI_OUTPUT_DUSTS = new CustomItem(Material.BLUE_STAINED_GLASS_PANE, "&bDusts Output");
-    private static final CustomItem GUI_WAIT = new CustomItem(Material.YELLOW_STAINED_GLASS_PANE, "&ePlease wait", "&7Maybe about 0.25s");
-    private static final CustomItem GUI_NOLIQUID = new CustomItem(Material.BARRIER, "&cNo Liquid", "&7Put a bucket of liquid", "&7in the input slot and take", "&7it from the bucket output", "&7slot.");
+    private static final CustomItemStack GUI_INPUT = new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&aBucket Input");
+    private static final CustomItemStack GUI_OUTPUT = new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE, "&bBucket Output");
+    private static final CustomItemStack GUI_OUTPUT_DUSTS = new CustomItemStack(Material.BLUE_STAINED_GLASS_PANE, "&bDusts Output");
+    private static final CustomItemStack GUI_WAIT = new CustomItemStack(Material.YELLOW_STAINED_GLASS_PANE, "&ePlease wait", "&7Maybe about 0.25s");
+    private static final CustomItemStack GUI_NOLIQUID = new CustomItemStack(Material.BARRIER, "&cNo Liquid", "&7Put a bucket of liquid", "&7in the input slot and take", "&7it from the bucket output", "&7slot.");
     
     private void menuPreset(BlockMenuPreset preset) {
         for (int s : BGINPUTSLOTS) preset.addItem(s, GUI_INPUT, ChestMenuUtils.getEmptyClickHandler());

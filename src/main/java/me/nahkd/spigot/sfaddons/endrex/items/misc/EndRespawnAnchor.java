@@ -14,25 +14,24 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
-import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
-@SuppressWarnings("deprecation")
 public class EndRespawnAnchor extends EndrexItem {
 
-	public EndRespawnAnchor(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+	public EndRespawnAnchor(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, recipeType, recipe);
 		
 		addItemHandler(new BlockPlaceHandler(true) {
@@ -75,7 +74,8 @@ public class EndRespawnAnchor extends EndrexItem {
 	
 	public void setTextureByStage(int stage, Block block) {
 	    if (stage < 0 || stage > 4) throw new IllegalArgumentException("invaild texture stage (" + stage + ")");
-		EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_STATES[stage]);
+		// EndrexUtils.setSkullFromHash(block, EndrexSkulls.RESPAWN_ANCHOR_STATES[stage]);
+	    PlayerHead.setSkin(block, EndrexSkulls.RESPAWN_ANCHOR_STATES[stage], true);
 	}
 	
 	private static HashMap<World, NamespacedKey> worlds;

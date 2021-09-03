@@ -12,29 +12,29 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.CustomLiquid;
 import me.nahkd.spigot.sfaddons.endrex.items.liquid.LiquidStorage;
-import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
 /*
@@ -55,7 +55,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 	private final int jPerTick;
 	private final int liquidCapacity;
 	
-	public EnhancedElectricCrucible(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int mbPerTick, int jPerTick, int liquidCapacity) {
+	public EnhancedElectricCrucible(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int mbPerTick, int jPerTick, int liquidCapacity) {
 		super(category, item, recipeType, recipe);
 		this.mbPerTick = mbPerTick;
 		this.jPerTick = jPerTick;
@@ -83,7 +83,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		inputs_liquidAmount.put(input, output);
 		
 		String friendlyName = InventoryUtils.getFriendlyName(input);
-		recipesDisplay.add(new CustomItem(
+		recipesDisplay.add(new CustomItemStack(
 				input,
 				friendlyName != null? "&f" + friendlyName : null,
 				"&8\u21E8 &7Produce &f" + InventoryUtils.getFriendlyName(type.defaultDisplay),
@@ -202,7 +202,7 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 		} else {
 			// Yes ik this might cause lag, soon I'll add if check in here
 			String name = liquid.defaultDisplay.hasItemMeta() && liquid.defaultDisplay.getItemMeta().hasDisplayName()? liquid.defaultDisplay.getItemMeta().getDisplayName() : "&cI forgot to add the name for this liquid :|";
-			inv.replaceExistingItem(13, new CustomItem(
+			inv.replaceExistingItem(13, new CustomItemStack(
 					liquid.defaultDisplay,
 							name,
 							"",
@@ -215,8 +215,9 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 			final CustomLiquid liquidFinal = liquid;
 			final int mbFinal = mb;
 			Bukkit.getScheduler().runTask(Endrex.getRunningInstance(), () -> {
-				if (mbFinal > 0 && liquidFinal != null) EndrexUtils.setSkullFromHash(b, liquidFinal.crucibleSkullHash);
-				else EndrexUtils.setSkullFromHash(b, EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY_HASH);
+				if (mbFinal > 0 && liquidFinal != null) PlayerHead.setSkin(b, liquidFinal.crucibleSkull, true);
+				//else EndrexUtils.setSkullFromHash(b, EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY_HASH);
+				else PlayerHead.setSkin(b, EndrexSkulls.ENHANCED_CRUCIBLE_EMPTY_HASH, true);
 			});
 		}
 	}
@@ -224,10 +225,10 @@ public class EnhancedElectricCrucible extends EndrexItem implements EnergyNetCom
 	private static final int[] BGINPUTSLOTS = {0, 1, 2, 9, 11, 18, 19, 20};
 	private static final int[] BGINFOSLOTS = {3, 4, 5, 12, 14, 21, 22, 23};
 	private static final int[] BGOUTPUTSLOTS = {6, 7, 8, 15, 17, 24, 25, 26};
-	private static final CustomItem GUI_INPUT = new CustomItem(Material.LIME_STAINED_GLASS_PANE, "&aInput");
-	private static final CustomItem GUI_OUTPUT = new CustomItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, "&bOutput");
-	private static final CustomItem GUI_WAIT = new CustomItem(Material.YELLOW_STAINED_GLASS_PANE, "&ePlease wait", "&7Maybe about 0.25s");
-	private static final CustomItem GUI_NOLIQUID = new CustomItem(Material.BARRIER, "&cNo Liquid", "&7Nope, nothing :shrug:");
+	private static final CustomItemStack GUI_INPUT = new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&aInput");
+	private static final CustomItemStack GUI_OUTPUT = new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE, "&bOutput");
+	private static final CustomItemStack GUI_WAIT = new CustomItemStack(Material.YELLOW_STAINED_GLASS_PANE, "&ePlease wait", "&7Maybe about 0.25s");
+	private static final CustomItemStack GUI_NOLIQUID = new CustomItemStack(Material.BARRIER, "&cNo Liquid", "&7Nope, nothing :shrug:");
 	private void menuPreset(BlockMenuPreset preset) {
 		// preset.setSize(27); // dafuq this cause error tho
 		for (int s : BGINPUTSLOTS) preset.addItem(s, GUI_INPUT, ChestMenuUtils.getEmptyClickHandler());

@@ -2,8 +2,8 @@ package me.nahkd.spigot.sfaddons.endrex.utils;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
-
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * Wrap around the item stack to do stuffs
@@ -12,22 +12,27 @@ import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
  */
 public class ItemStackWrapper {
 	
-	private CustomItem itemStack;
+	private ItemStack itemStack;
+	private ItemMeta meta;
 	
-	public ItemStackWrapper(CustomItem item) {
+	public ItemStackWrapper(ItemStack item) {
 		itemStack = item;
+		meta = item.getItemMeta();
 	}
 	
 	public ItemStackWrapper addEnchant(Enchantment ench, int lv) {
-		itemStack.addUnsafeEnchantment(ench, lv);
+		meta.addEnchant(ench, lv, true);
 		return this;
 	}
 	
 	public ItemStackWrapper addFlag(ItemFlag... flags) {
-		itemStack.addFlags(flags);
+		meta.addItemFlags(flags);
 		return this;
 	}
 	
-	public CustomItem getItem() {return itemStack;}
+	public ItemStack getItem() {
+	    itemStack.setItemMeta(meta);
+	    return itemStack;
+	}
 	
 }

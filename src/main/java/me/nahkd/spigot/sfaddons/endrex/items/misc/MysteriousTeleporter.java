@@ -16,21 +16,20 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexSkulls;
-import me.nahkd.spigot.sfaddons.endrex.utils.EndrexUtils;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
 
-@SuppressWarnings("deprecation")
 public class MysteriousTeleporter extends EndrexItem {
 
 	private static NamespacedKey linkKey;
@@ -38,7 +37,7 @@ public class MysteriousTeleporter extends EndrexItem {
 		linkKey = new NamespacedKey(plugin, "linkto");
 	}
 	
-	public MysteriousTeleporter(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+	public MysteriousTeleporter(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, recipeType, recipe);
 		
 		addItemHandler((BlockUseHandler) (event)-> {
@@ -100,8 +99,9 @@ public class MysteriousTeleporter extends EndrexItem {
 							data.setValue("linkto", destStr);
 							location = dest.getLocation();
 							dest.setType(Material.PLAYER_HEAD);
-							EndrexUtils.setSkullFromHash(dest, EndrexSkulls.MYSTERIOUS_TELEPORTER_HASH);
-							BlockStorage.setBlockInfo(dest.getLocation(), "{\"id\":\"" + getID() + "\",\"linkto\":\"" + srcStr +"\"}", false);
+							//EndrexUtils.setSkullFromHash(dest, EndrexSkulls.MYSTERIOUS_TELEPORTER_HASH);
+							PlayerHead.setSkin(block, EndrexSkulls.MYSTERIOUS_TELEPORTER, true);
+							BlockStorage.setBlockInfo(dest.getLocation(), "{\"id\":\"" + getId() + "\",\"linkto\":\"" + srcStr +"\"}", false);
 							break;
 						}
 					} else {

@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
-import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItem;
 import me.nahkd.spigot.sfaddons.endrex.recipes.EndrexRecipeType;
@@ -40,7 +40,7 @@ public class EndrexMineableResource extends EndrexItem {
 		return outputItem;
 	}
 	
-	public EndrexMineableResource(Category category, SlimefunItemStack item, double generateChance, ItemStack output) {
+	public EndrexMineableResource(ItemGroup category, SlimefunItemStack item, double generateChance, ItemStack output) {
 		super(category, item, EndrexRecipeType.RANDOMLY_GENERATED, new ItemStack[0]);
 		
 		this.generateChance = generateChance;

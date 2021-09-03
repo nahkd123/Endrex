@@ -7,6 +7,8 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
+
 /**
  * This isn't actual liquid. It's not like what you might think...
  * @author nahkd123
@@ -36,7 +38,7 @@ public class CustomLiquid {
 	public final String key;
 	public final ItemStack defaultDisplay;
 	public ItemStack bucket;
-	public String crucibleSkullHash;
+	public PlayerSkin crucibleSkull;
 	
 	public CustomLiquid(NamespacedKey key, ItemStack defaultDisplay) {
 		this.key = key.toString();

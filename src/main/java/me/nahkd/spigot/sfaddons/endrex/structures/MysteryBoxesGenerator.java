@@ -12,7 +12,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.nahkdschem2.VectorInt;
@@ -35,8 +35,8 @@ public class MysteryBoxesGenerator extends StructuresGenerator {
 				new LootTableEntry(0.02, new ItemStack(Material.EXPERIENCE_BOTTLE, 3)),
 				new LootTableEntry(0.03, new ItemStack(Material.EXPERIENCE_BOTTLE, 2)),
 				
-				new LootTableEntry(0.02, new CustomItem(EndrexItems.ENDERIUM.getItem(), 1)),
-				new LootTableEntry(0.01, new CustomItem(EndrexItems.ENDERIUM.getItem(), 2)),
+				new LootTableEntry(0.02, new CustomItemStack(EndrexItems.ENDERIUM.getItem(), 1)),
+				new LootTableEntry(0.01, new CustomItemStack(EndrexItems.ENDERIUM.getItem(), 2)),
 
 				new LootTableEntry(0.04, new ItemStack(Material.DIAMOND, 1)),
 				new LootTableEntry(0.03, new ItemStack(Material.DIAMOND, 2)),

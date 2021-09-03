@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import me.nahkd.spigot.sfaddons.endrex.items.mysterious.MysteriousEquipment;
 import me.nahkd.spigot.sfaddons.endrex.utils.EndrexLoreBuilder;
 import me.nahkd.spigot.sfaddons.endrex.utils.InventoryUtils;
@@ -26,7 +26,7 @@ public class InventoryEventsHandlers implements Listener {
 		ItemStack itemStack = event.getCurrentItem();
 		if (!InventoryUtils.isNotAir(itemStack)) return;
 		ItemMeta meta = itemStack.getItemMeta();
-		Optional<String> id = SlimefunPlugin.getItemDataService().getItemData(meta);
+		Optional<String> id = Slimefun.getItemDataService().getItemData(meta);
 		if (id.isPresent() && MysteriousEquipment.getMappedItems().containsKey(id.get())) {
 			MysteriousEquipment equipment = MysteriousEquipment.getMappedItems().get(id.get());
 			if (meta.getLore().get(0).equals(EndrexLoreBuilder.CLICK_TO_UNLOCK)) {

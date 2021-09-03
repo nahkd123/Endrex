@@ -8,9 +8,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexEquipment;
 
@@ -21,7 +21,7 @@ public class MysteriousEquipment extends EndrexEquipment {
 	
 	public HashMap<Enchantment, List<RandomEnchantmentEntry>> enchs;
 	
-	public MysteriousEquipment(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+	public MysteriousEquipment(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, recipeType, recipe);
 		
 		mappedItems.put(getId(), this);

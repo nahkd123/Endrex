@@ -18,7 +18,6 @@ import me.nahkd.spigot.sfaddons.endrex.Endrex;
 import me.nahkd.spigot.sfaddons.endrex.items.EndrexItems;
 import me.nahkd.spigot.sfaddons.endrex.items.misc.EndRespawnAnchor;
 
-@SuppressWarnings("deprecation")
 public class PlayerEventsHandlers implements Listener {
 	
 	private Endrex plugin;
@@ -45,7 +44,7 @@ public class PlayerEventsHandlers implements Listener {
 			String[] arr = player.getPersistentDataContainer().get(key, PersistentDataType.STRING).split("\\:");
 			int x = Integer.parseInt(arr[0]), y = Integer.parseInt(arr[1]), z = Integer.parseInt(arr[2]);
 			Block anchor = world.getBlockAt(x, y, z);
-			if (BlockStorage.check(anchor, EndrexItems.END_RESPAWN_ANCHOR.getID())) {
+			if (BlockStorage.check(anchor, EndrexItems.END_RESPAWN_ANCHOR.getId())) {
 				int stage = Integer.parseInt(BlockStorage.getLocationInfo(anchor.getLocation(), "stage"));
 				if (stage <= 0) {
 					player.sendMessage("§7Feed your anchor next time!");
